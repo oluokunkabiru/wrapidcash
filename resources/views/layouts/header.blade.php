@@ -46,7 +46,7 @@
                                 {{ ucwords(Auth::user()->name) }}
                             </a>
                             <div class="dropdown-menu ">
-                              <a class="dropdown-item text-black" href="login.php">Dashboard</a>
+                              <a class="dropdown-item text-black" href="{{ route('home') }}">Dashboard</a>
 
                               <a class="dropdown-item" href="{{ route('logout') }}"
                               onclick="event.preventDefault();
