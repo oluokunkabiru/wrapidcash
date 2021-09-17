@@ -1,17 +1,22 @@
-<link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-    {{--  <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">  --}}
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
-    {{--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  --}}
-    <link rel="stylesheet" href="{{ asset('assets/bootsrap/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/cs-skin-elastic.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/jquery-ui-1.12.1/jquery-ui.min.css') }}">
-    <link rel="shortcut icon" href="{{ asset('front-asset/images/rc_Logo.png') }}" type="image/x-icon">
+<!-- plugins:css -->
+<link rel="stylesheet" href="{{ asset('assets/vendors/mdi/css/materialdesignicons.min.css') }}">
+
+{{--  <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">  --}}
+<link rel="stylesheet" href="{{ asset('assets/vendors/base/vendor.bundle.base.css') }}">
+{{--  <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css">  --}}
+<!-- endinject -->
+<!-- plugin css for this page -->
+<link rel="stylesheet" href="{{ asset('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
+{{--  <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">  --}}
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+{{--  <link rel="stylesheet" href="css/style.css">  --}}
+<!-- endinject -->
+<link rel="shortcut icon" href="images/favicon.png" />
+<link rel="stylesheet" href="{{ asset('assets/jquery-ui-1.12.1/jquery-ui.min.css') }}">
+<link rel="shortcut icon" href="{{ asset('front-asset/images/rc_Logo.png') }}" type="image/x-icon">
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     {{--  <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">

@@ -9,10 +9,19 @@
     @yield('style')
 </head>
 <body>
-    @include('users.layout.sidebar')
-    @yield('content')
+    <div class="container-scroller">
+        {{-- header goes here --}}
+        @include('users.layout.header')
+        <div class="container-fluid page-body-wrapper">
+            @include('users.layout.sidebar')
+            <div class="main-panel">
+                @yield('content')
 
-    @include('users.layout.footer')
+                 @include('users.layout.footer')
+            </div>
+
+        </div>
+    </div>
     @include('users.layout.script')
     @yield('script')
 </body>
