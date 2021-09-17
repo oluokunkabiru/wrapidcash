@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('front-asset/css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('front-asset/css/owl.theme.default.min.css') }}">
 <link rel="stylesheet" href="{{ asset('front-asset/css/style.css') }}">
+<link rel="shortcut icon" href="{{ asset('front-asset/images/rc_Logo.png') }}" type="image/x-icon">
 {{--  <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/magnific-popup.css">
 <link rel="stylesheet" href="css/jquery-ui.css">
