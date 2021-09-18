@@ -15,6 +15,7 @@ class CoinController extends Controller
     public function index()
     {
         //
+        return view('users.investor.coin');
     }
 
     /**
@@ -60,6 +61,9 @@ class CoinController extends Controller
         //
     }
 
+    public function coinDetail($id){
+        return view('users.investor.coin-detail');
+    }
     /**
      * Update the specified resource in storage.
      *

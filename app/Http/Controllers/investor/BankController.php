@@ -29,12 +29,12 @@ class BankController extends Controller
     }
 
     public function accountSetting(){
-        return "Account settings here";
+        return view('users.investor.account-setting');
     }
 
 
     public function transactionHistory(){
-        return "Historys here";
+        return view('users.investor.transaction-history') ;
     }
 
 

@@ -15,8 +15,10 @@
         <div class="container-fluid page-body-wrapper">
             @include('users.investor.layout.sidebar')
             <div class="main-panel">
-                @yield('content')
+                <div class="content-wrapper">
 
+                @yield('content')
+                </div>
                  @include('users.investor.layout.footer')
             </div>
 
