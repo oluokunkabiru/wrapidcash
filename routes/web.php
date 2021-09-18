@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/' , 'PagesController@index')->name('welcome');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('dashboard', 'admin\AdminControler@index')->name('admindashboard');
+});
+Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
+    Route::get('dashboard', 'investor\InvestorController@index')->name('usersdashboard');
+    Route::resource('bank', 'investor\BankController');
+    Route::get('/account-setting', 'investor\BankController@accountSetting')->name('account_setting');
+    Route::get('/transaction-history', 'investor\BankController@transactionHistory')->name('transaction_history');
+    Route::get('/withdraw-request', 'investor\BankController@withdrawRequest')->name('withdraw-request');
+    Route::resource('coin', 'investor\CoinController');
+});
