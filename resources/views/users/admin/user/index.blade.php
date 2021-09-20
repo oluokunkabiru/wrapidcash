@@ -29,15 +29,16 @@
                                     $sn = 0;
                                 @endphp
                                 <tbody>
-                                    @for ($i = 0; $i < 20; $i++)
+                                    @forelse ($users as $user)
+
 
                                         <tr>
                                             <td>{{ ++$sn }}</td>
-                                            <td>Name {{ $i }}</td>
-                                            <td>Email{{ $i }}</td>
-                                            <td>{{ $i + 1 }}77458738</td>
+                                            <td>{{ ucwords($user->name) }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->phone }}</td>
                                             <td>
-                                                @if ($i % 2 == 0)
+                                                @if ($sn % 2 == 0)
                                                     <span class="badge badge-pill badge-success">Approved</span>
                                                 @else
                                                     <span class="badge badge-pill badge-danger">Pending</span>
@@ -46,7 +47,9 @@
                                             <td>Madke admin</td>
                                         </tr>
 
-                                    @endfor
+                                        @empty
+                                        <h2 class="text-danger text-center font-weight-bold">No active users</h2>
+                                        @endforelse
                                 </tbody>
                             </table>
                         </div>

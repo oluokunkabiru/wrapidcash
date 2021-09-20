@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Unicodeveloper\Paystack\PaystackServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 

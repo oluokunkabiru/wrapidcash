@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WrapcoinRequest;
+use App\Models\Coin;
 use Illuminate\Http\Request;
 
 class CoinController extends Controller
@@ -34,9 +36,15 @@ class CoinController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WrapcoinRequest $request)
     {
         //
+        $coin = new Coin();
+        $coin->quantity = $request->quantity;
+        $coin->amount = $request->amount;
+        $coin->status = "active";
+        return $request;
+        //  $user->addMediaFromRequest('avatar')->usingFileName($fileName)->toMediaCollection("avatar");
     }
 
     /**
