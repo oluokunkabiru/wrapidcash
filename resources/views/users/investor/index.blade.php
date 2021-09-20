@@ -223,7 +223,7 @@
           <div class="card-body">
             <p class="card-title">Recent Purchases</p>
             <div class="table-responsive">
-              <table id="recent-purchases-listing" class="table">
+              <table id="transaction" class="table">
                 <thead>
                   <tr>
                       <th>S/N</th>
@@ -263,3 +263,20 @@
     </div>
 @endsection
 
+@section('script')
+    <script>
+        $(document).ready(function() {
+            // $(".select2").select2();
+            // alert('hello');
+            $("#transaction").dataTable({
+                "columnDefs": [{
+                    "sortable": true,
+                    // "targets": [2, 3]
+                }]
+            });
+
+
+
+        })
+    </script>
+@endsection

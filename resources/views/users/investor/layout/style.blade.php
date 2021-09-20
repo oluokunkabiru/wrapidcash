@@ -11,6 +11,7 @@
 {{--  <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">  --}}
 <!-- End plugin css for this page -->
 <!-- inject:css -->
+<link rel="stylesheet" href="{{ asset('assets/vendors/datatables/datatables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 {{--  <link rel="stylesheet" href="css/style.css">  --}}
 <!-- endinject -->

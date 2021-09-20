@@ -9,7 +9,6 @@
   <script src="{{ asset('assets/js/Chart.min.js') }}"></script>
   <script src="{{ asset('assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
   <script src="{{ asset('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
-
   <!-- End plugin js for this page-->
   <!-- inject:js -->
   <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
@@ -22,3 +21,4 @@
   <script src="{{ asset('assets/js/dataTables.bootstrap4.js') }}"></script>
 
   <script src="{{ asset('assets/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
+  <script src="{{ asset('assets/vendors/datatables/datatables.min.js') }}"></script>

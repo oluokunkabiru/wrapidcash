@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TransactionController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class TransactionController extends Controller
     public function index()
     {
         //
-        return view('users.admin.transaction.index');
+        return view('users.admin.role.index');
     }
 
     /**

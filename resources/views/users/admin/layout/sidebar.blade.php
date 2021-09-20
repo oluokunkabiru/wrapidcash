@@ -26,25 +26,25 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('withdraw-request') }}">
+        <a class="nav-link" href="{{ route('withdraw-request.index') }}">
           <i class=" mdi mdi-currency-ngn menu-icon"></i>
           <span class="menu-title">Withdraw request</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('coin.index') }}">
+        <a class="nav-link" href="{{ route('wrap-coin.index') }}">
           <i class="mdi mdi-coin  menu-icon"></i>
           <span class="menu-title">Manage coins</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('account_setting') }}">
+        <a class="nav-link" href="{{ route('role.index') }}">
           <i class=" mdi mdi-account-card-details menu-icon"></i>
           <span class="menu-title">Manage role</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('account_setting') }}">
+        <a class="nav-link" href="{{ route('permission.index') }}">
           <i class=" mdi mdi-account-card-details menu-icon"></i>
           <span class="menu-title">Manage permission</span>
         </a>
