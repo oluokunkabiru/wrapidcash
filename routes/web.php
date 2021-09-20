@@ -26,6 +26,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('dashboard', 'admin\AdminControler@index')->name('admindashboard');
+    Route::resource('users', 'admin\UsersController');
+    Route::resource('transaction-history', 'admin\TransactionController');
 });
 Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
     Route::get('dashboard', 'investor\InvestorController@index')->name('usersdashboard');
@@ -35,4 +37,8 @@ Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
     Route::get('/withdraw-request', 'investor\BankController@withdrawRequest')->name('withdraw-request');
     Route::resource('coin', 'investor\CoinController');
     Route::get('coin-detal/{id}/order-now', 'investor\CoinController@coinDetail')->name('order-coin');
+    // paystack
+    Route::post('/pay', 'investor\PaymentController@redirectToGateway')->name('pay');
+    Route::get('/payment/callback', 'investor\PaymentController@handleGatewayCallback');
+    //end paystack
 });

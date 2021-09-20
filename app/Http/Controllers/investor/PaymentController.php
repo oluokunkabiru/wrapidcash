@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\investor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Unicodeveloper\Paystack\Facades\Paystack;
 
-class AdminControler extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +17,47 @@ class AdminControler extends Controller
     public function index()
     {
         //
-        return view('users.admin.index');
     }
+
+
+    public function redirectToGateway()
+    {
+        try{
+            return Paystack::getAuthorizationUrl()->redirectNow();
+        }catch(\Exception $e) {
+            return dd($e);
+            // return "herro";
+            return Redirect::back()->with(['fail'=>'The paystack token has expired. Please refresh the page and try again.', 'type'=>'error']);
+        }
+    }
+
+
+
+    public function handleGatewayCallback()
+    {
+        $paymentDetails = Paystack::getPaymentData();
+        return $paymentDetails;
+
+        // $userid =  $paymentDetails['data']['metadata']['offender_id'];
+
+        // $offender = Offender::where('id', $userid)->first();
+        // $offender->payment_method = "Card";
+        // $offender->payment_status = "paid";
+        // $offender->payment_details = $paymentDetails;
+        // $offender->update();
+        // return redirect()->route('offence-receipt', $userid)->with('success', 'Your payment of NGN'. $offender->amount. ' was successful') ;
+
+        // return $offender;
+
+
+        // return $paymentDetails;
+
+
+        // Now you have the payment details,
+        // you can store the authorization_code in your db to allow for recurrent subscriptions
+        // you can then redirect or do whatever you want
+    }
+
 
     /**
      * Show the form for creating a new resource.
