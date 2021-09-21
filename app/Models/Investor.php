@@ -14,12 +14,16 @@ class Investor extends Model
         if($last != null){
             $prevUname = $last->username;
            $extractUname = explode($username, $prevUname);
-        //    $extractedUname = $extractUname[0];
            $number = $extractUname[1];
            $newNumber  = isset($number) && is_numeric($number)?$number+1:0;
             $newUname = $username.$newNumber;
            return $newUname;
        }
        return $username;
+    }
+
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
     }
 }

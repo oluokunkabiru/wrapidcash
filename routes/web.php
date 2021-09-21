@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 // })->name('welcome');
 
 Route::get('/' , 'PagesController@index')->name('welcome');
+Route::get('/register/{id}/referral', 'ReferralController@referralLink')->name('investor-referral');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

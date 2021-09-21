@@ -7,4 +7,7 @@ use Illuminate\Http\Request;
 class ReferralController extends Controller
 {
     //
+    public function referralLink($id){
+        return $id;
+    }
 }

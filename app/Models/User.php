@@ -46,4 +46,12 @@ class User extends Authenticatable implements HasMedia
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function investor(){
+        return $this->belongsTo('App\Models\Investor');
+    }
+
+    public function referral(){
+        return $this->belongsTo('App\Models\Referral');
+    }
 }

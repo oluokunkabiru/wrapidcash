@@ -203,7 +203,13 @@
                     </div>
                 </div>
             </div>
-
+            <a href="{{ route('investor-referral', $investor->username ) }}">{{ route('investor-referral', $investor->username ) }}</a>
+            <p class=" mdi mdi-content-copy " onclick="fileCopy(this.id)"  id="{{ route('investor-referral', $investor->username ) }}"></p>
+          </div>
+          <div class="toast" data-autohide="true">
+            <div class="toast-body">
+              Copied <span id="toast" class="font-weight-bold mx-1"></span>
+            </div>
           </div>
         </div>
       </div>
@@ -260,13 +266,23 @@
           </div>
         </div>
       </div>
+
     </div>
 @endsection
 
 @section('script')
     <script>
+function fileCopy(text) {
+  // alert(text);
+  var txt = $("<input>").val(text).appendTo("body").select();
+  document.execCommand("copy");
+  $("#toast").text(text);
+  $('.toast').toast('show');
+
+}
         $(document).ready(function() {
             // $(".select2").select2();
+
             // alert('hello');
             $("#transaction").dataTable({
                 "columnDefs": [{

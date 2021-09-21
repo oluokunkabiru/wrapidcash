@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\investor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Investor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InvestorController extends Controller
 {
@@ -15,7 +17,9 @@ class InvestorController extends Controller
     public function index()
     {
         //
-        return view('users.investor.index');
+        $investor = Investor::with(['user'])->where('user_id', Auth::user()->id)->first();
+        // return $investor;
+        return view('users.investor.index', compact(['investor']));
     }
 
     /**
