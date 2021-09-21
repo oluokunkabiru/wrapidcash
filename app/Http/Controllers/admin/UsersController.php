@@ -20,6 +20,23 @@ class UsersController extends Controller
         return view('users.admin.user.index', compact(['users']));
     }
 
+    public function disables($id){
+        $user = User::where('id', $id)->first();
+        $user->status = "disabled";
+        $user->update();
+        return redirect()->back()->with('delete', $user->name .' disabled successfully');
+
+
+     }
+
+     public function enable($id){
+        $user = User::where('id', $id)->first();
+        $user->status = "active";
+        $user->update();
+        return redirect()->back()->with('success', $user->name .' enabled successfully');
+
+
+     }
     /**
      * Show the form for creating a new resource.
      *

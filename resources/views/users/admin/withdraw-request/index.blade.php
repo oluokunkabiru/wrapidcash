@@ -81,7 +81,7 @@
 
                 <div class="form-group">
                     <label for="">Account Name:</label>
-                    <input type="text" class="form-control" id="accountnumber">
+                    <input type="text"  class="form-control" id="accountnumber">
                 </div>
 
                 <div class="form-group">

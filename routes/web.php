@@ -25,15 +25,17 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::get('dashboard', 'admin\AdminControler@index')->name('admindashboard');
+    Route::get('/dashboard', 'admin\AdminControler@index')->name('admindashboard');
     Route::resource('users', 'admin\UsersController');
     Route::resource('transaction-history', 'admin\TransactionController');
     Route::resource('withdraw-request', 'admin\WithdrawController');
     Route::resource('wrap-coin', 'admin\CoinController');
     Route::resource('role', 'admin\RoleController');
     Route::resource('permission', 'admin\PermissionController');
-    Route::get('disabled/{id}/wrap-coin', 'admin\CoinController@disable')->name('disabled-wrap-coin');
-    Route::get('enabled/{id}/wrap-coin', 'admin\CoinController@enable')->name('enabled-wrap-coin');
+    Route::get('/disabled/{id}/wrap-coin', 'admin\CoinController@disable')->name('disabled-wrap-coin');
+    Route::get('/enabled/{id}/wrap-coin', 'admin\CoinController@enable')->name('enabled-wrap-coin');
+    Route::get('/disabled/{id}/users', 'admin\UsersController@disables')->name('disabled-user');
+    Route::get('/enabled/{id}/users', 'admin\UsersController@enable')->name('enable-user');
 });
 Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
     Route::get('dashboard', 'investor\InvestorController@index')->name('usersdashboard');
