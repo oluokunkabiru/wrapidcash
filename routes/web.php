@@ -32,6 +32,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('wrap-coin', 'admin\CoinController');
     Route::resource('role', 'admin\RoleController');
     Route::resource('permission', 'admin\PermissionController');
+    Route::get('disabled/{id}/wrap-coin', 'admin\CoinController@disable')->name('disabled-wrap-coin');
+    Route::get('enabled/{id}/wrap-coin', 'admin\CoinController@enable')->name('enabled-wrap-coin');
 });
 Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
     Route::get('dashboard', 'investor\InvestorController@index')->name('usersdashboard');

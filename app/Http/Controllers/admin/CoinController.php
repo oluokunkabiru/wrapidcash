@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CoinUpdateRequest;
 use App\Http\Requests\WrapcoinRequest;
 use App\Models\Coin;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class CoinController extends Controller
     public function index()
     {
         //
-        return view('users.admin.coin.index');
+        $coins = Coin::orderBy('id', 'desc')->get();
+        return view('users.admin.coin.index', compact(['coins']));
     }
 
     /**
@@ -41,10 +43,10 @@ class CoinController extends Controller
         //
         $coin = new Coin();
         $coin->quantity = $request->quantity;
-        $coin->amount = $request->amount;
-        $coin->status = "active";
-        return $request;
-        //  $user->addMediaFromRequest('avatar')->usingFileName($fileName)->toMediaCollection("avatar");
+        $coin->price = $request->price;
+        $coin->addMediaFromRequest('avatar')->toMediaCollection('coin-avatar');
+        $coin->save();
+        return redirect()->back()->with('success', 'New wrap coin added successfully');
     }
 
     /**
@@ -76,9 +78,37 @@ class CoinController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+     public function disable($id){
+        $coin = Coin::where('id', $id)->first();
+        $coin->status = "disabled";
+        $coin->update();
+        return redirect()->back()->with('success', 'Coin disabled successfully');
+
+
+     }
+
+     public function enable($id){
+        $coin = Coin::where('id', $id)->first();
+        $coin->status = "active";
+        $coin->update();
+        return redirect()->back()->with('success', 'Coin enabled successfully');
+
+
+     }
+    public function update(CoinUpdateRequest $request, $id)
     {
         //
+        $coin = Coin::where('id', $id)->first();
+        $coin->price = $request->price;
+        $coin->quantity = $request->quantity;
+        if($request->file("avatar")){
+            $coin->delete($id);
+            $coin->clearMediaCollection();
+            $coin->addMediaFromRequest('avatar')->toMediaCollection("coin-avatar");
+        }
+        $coin->save();
+        return redirect()->back()->with('success', 'Coin update successfully');
     }
 
     /**

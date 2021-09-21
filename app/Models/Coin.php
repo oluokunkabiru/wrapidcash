@@ -10,4 +10,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Coin extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
+
+    public function totalInvestor($id){
+        return 10*$id;
+    }
 }
