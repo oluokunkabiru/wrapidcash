@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Investor;
+use App\Models\Referral;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -65,12 +67,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user  =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
-            'role' => "admin",
+            'role' => "user",
         ]);
+        $investor = new Investor();
+        $investor->username = $investor->username($user->name);
+        $investor->user_id = $user->id;
+        $investor->save();
+        $ref = new Referral();
+        $ref->user_id = $user->id;
+        // $ref->investor_id = "";
+        $ref->save();
+        return $user;
     }
 }
