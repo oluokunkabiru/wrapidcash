@@ -80,7 +80,7 @@ class RegisterController extends Controller
         $investor->save();
         $ref = new Referral();
         $ref->user_id = $user->id;
-        // $ref->investor_id = "";
+        $ref->investor_id = $data['ref'];
         $ref->save();
         return $user;
     }

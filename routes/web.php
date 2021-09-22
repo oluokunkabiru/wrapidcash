@@ -46,6 +46,7 @@ Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
     Route::get('/transaction-history', 'investor\BankController@transactionHistory')->name('transaction_history');
     Route::get('/withdraw-request', 'investor\BankController@withdrawRequest')->name('withdraw-request');
     Route::resource('coin', 'investor\CoinController');
+    Route::resource('investment', 'InvestmentController');
     Route::get('coin-detal/{id}/order-now', 'investor\CoinController@coinDetail')->name('order-coin');
     // paystack
     Route::post('/pay', 'investor\PaymentController@redirectToGateway')->name('pay');

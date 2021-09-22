@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Register')
+@section('title', isset($ref) ? $ref->user->name.' invite you to register' : 'Register' )
 
 
 @section('content')
@@ -11,10 +11,10 @@
                 <div class="dudu">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-                      <h1>Register</h1>
+                      <h1>{{ isset($ref) ? ucwords($ref->user->name).' invite you to register' : 'Register' }}</h1>
 
                       <label for="firstname"><b>Full name</b></label>
-
+                        <input type="hidden" name="ref" value="{{ isset($ref) ? ucwords($ref->id):"" }}">
                       <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                       @error('name')

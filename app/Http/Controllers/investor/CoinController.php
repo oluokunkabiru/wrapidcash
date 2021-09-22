@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\investor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TransferRequest;
+use App\Models\Bank;
+use App\Models\Coin;
+use App\Models\investor\Investment;
 use Illuminate\Http\Request;
 
 class CoinController extends Controller
@@ -15,7 +19,8 @@ class CoinController extends Controller
     public function index()
     {
         //
-        return view('users.investor.coin');
+        $coins = Coin::orderBy('price', 'asc')->where('status', 'active')->get();
+        return view('users.investor.coin', compact(['coins']));
     }
 
     /**
@@ -34,9 +39,12 @@ class CoinController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TransferRequest $request)
     {
         //
+       
+
+
     }
 
     /**
@@ -62,7 +70,9 @@ class CoinController extends Controller
     }
 
     public function coinDetail($id){
-        return view('users.investor.coin-detail');
+        $coin = Coin::where('id', $id)->first();
+        $banks = Bank::get();
+        return view('users.investor.coin-detail', compact(['coin', 'banks']));
     }
     /**
      * Update the specified resource in storage.

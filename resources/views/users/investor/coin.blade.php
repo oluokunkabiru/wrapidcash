@@ -7,20 +7,21 @@
     <div class="card-body p-2">
         <div class="card-columns">
 
-            @for ($i = 0; $i < 10; $i++)
+            @forelse ($coins as $coin)
 
 
-            <a href="{{ route('order-coin', $i) }}" class="text-dark">
+
+            <a href="{{ route('order-coin', $coin->id) }}" class="text-dark">
             <div class="card shadow-box">
                 <div class="card-body text-center">
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <img src="{{ asset('front-asset/images/coins.jpg') }}" class="card-img" alt="">
+                                <img src="{{$coin->getMedia('coin-avatar')->first()->getFullUrl() }}" class="card-img" alt="">
                             </div>
                             <div class="col">
-                                <h6>{{ $i }} Rash coin</h6>
-                                <h4> <span class=" mdi mdi-currency-ngn "></span> 28835 </h4>
+                                <h6>{{ $coin->quantity }} Rash coin</h6>
+                                <h4> <span class=" mdi mdi-currency-ngn "></span> {{ number_format($coin->price, 2, '.', ',') }} </h4>
                             </div>
                         </div>
                     </div>
@@ -28,7 +29,10 @@
                 </div>
             </div>
             </a>
-            @endfor
+            @empty
+            <h3>No coins available at moment</h3>
+
+            @endforelse
 
         </div>
     </div>

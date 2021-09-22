@@ -216,10 +216,14 @@
       <div class="col-md-5 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <p class="card-title">Current balance</p>
-            <h1><span class=" mdi mdi-currency-ngn "></span> 28835</h1>
-            <h4>Gross sales over the years</h4>
-
+            <p class="card-title">Investment balance</p>
+            <h1><span class=" mdi mdi-currency-ngn "></span> {{ number_format($investor->balance, 2, '.', ',') }}</h1>
+            <hr>
+            <p class="card-title">Referral balance</p>
+            <h1><span class=" mdi mdi-currency-ngn "></span> {{ number_format($investor->referra_bonus , 2, '.', ',') }}</h1>
+            <hr>
+            <p class="card-title">Total balance</p>
+            <h1><span class=" mdi mdi-currency-ngn "></span> {{ number_format($investor->balance+$investor->referra_bonus, 2, '.', ',') }}</h1>
         </div>
       </div>
     </div>
