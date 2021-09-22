@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\investor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Coin;
+use App\Models\Investor;
+use App\Models\investor\Investment;
+use App\Models\Referral;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Unicodeveloper\Paystack\Facades\Paystack;
 
@@ -36,16 +41,39 @@ class PaymentController extends Controller
     public function handleGatewayCallback()
     {
         $paymentDetails = Paystack::getPaymentData();
-        return $paymentDetails;
 
-        // $userid =  $paymentDetails['data']['metadata']['offender_id'];
 
-        // $offender = Offender::where('id', $userid)->first();
-        // $offender->payment_method = "Card";
-        // $offender->payment_status = "paid";
-        // $offender->payment_details = $paymentDetails;
-        // $offender->update();
-        // return redirect()->route('offence-receipt', $userid)->with('success', 'Your payment of NGN'. $offender->amount. ' was successful') ;
+
+        // return $paymentDetails;
+
+        $coinid =  $paymentDetails['data']['metadata']['coinid'];
+        $invest = new Investment();
+        $invest->coin_id = $coinid;
+        $invest->depositor_name = Auth::user()->name;
+        $coin = Coin::where('id', $coinid)->first();
+        $ref = Referral::where('user_id', Auth::user()->id)->first();
+        $investor = Investor::where('user_id', Auth::user()->id)->first();
+        $invest->investor_id = $investor->id;
+        $invest->payment = "card";
+        $invest->status = "active";
+        $invest->invest_date = date('Y-m-d');
+
+        $invest->end_date = date("Y-m-d" ,strtotime("+30 day"));
+        if($ref->investor_id){
+            $previousinv = Investment::where('investor_id', $investor->id)->first();
+            if(!$previousinv){
+                $refbonus = Investor::where('id', $ref->investor_id)->first();
+                // return $ref;
+                $currentBal = $refbonus->referral_bonus;
+                $refbonu = $coin->price*0.05;
+                $currentBal += $refbonu;
+                $refbonus->referral_bonus = $currentBal;
+                $refbonus->update();
+            }
+        }
+
+        $invest->save();
+        return redirect()->route('usersdashboard')->with('success', 'You have invested');
 
         // return $offender;
 

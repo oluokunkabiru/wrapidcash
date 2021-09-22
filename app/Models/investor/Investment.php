@@ -10,4 +10,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Investment extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
+
+    public function investor(){
+        return $this->belongsTo('App\Models\Investor');
+    }
+    public function coin(){
+        return $this->belongsTo('App\Models\Coin');
+    }
 }

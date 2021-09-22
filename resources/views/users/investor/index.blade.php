@@ -66,89 +66,112 @@
                 </div>
               </div>
               <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">
+                @forelse ($invs as $inv)
+
+
                 <div class="d-flex flex-wrap justify-content-xl-between">
                   <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                     <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
                     <div class="d-flex flex-column justify-content-around">
-                      <small class="mb-1 text-muted">Start date</small>
-                     <h5 class="mb-0 d-inline-block">26 Jul 2018</h5>
+                      <small class="mb-1 text-muted">Investment start</small>
+                     <h5 class="mb-0 d-inline-block">{{ $inv->end_date ? date('d, M Y', strtotime($inv->invest_date)):"Not yet approved" }}</h5>
 
                     </div>
                   </div>
-                  <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                    <i class="mdi mdi-download mr-3 icon-lg text-warning"></i>
+                  <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                    <i class="mdi mdi-calendar-heart icon-lg mr-3 text-success"></i>
                     <div class="d-flex flex-column justify-content-around">
-                      <small class="mb-1 text-muted">Downloads</small>
-                      <h5 class="mr-2 mb-0">2233783</h5>
+                      <small class="mb-1 text-muted">Investment end</small>
+                     <h5 class="mb-0 d-inline-block">{{ $inv->end_date ? date('d, M Y', strtotime($inv->end_date)):"Not yet approved" }}</h5>
+
                     </div>
                   </div>
+
                   <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                    <i class="mdi mdi-eye mr-3 icon-lg text-success"></i>
-                    <div class="d-flex flex-column justify-content-around">
-                      <small class="mb-1 text-muted">Total views</small>
-                      <h5 class="mr-2 mb-0">9833550</h5>
-                    </div>
-                  </div>
-                  <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                    <i class="mdi mdi-currency-usd mr-3 icon-lg text-danger"></i>
+                    <i class="mdi mdi-currency-ngn mr-3 icon-lg text-danger"></i>
                     <div class="d-flex flex-column justify-content-around">
                       <small class="mb-1 text-muted">Revenue</small>
-                      <h5 class="mr-2 mb-0">$577545</h5>
+                      <h5 class="mr-2 mb-0">{{ number_format($inv->revenue, 2, '.', ',') }}</h5>
                     </div>
                   </div>
-                  <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                    <i class="mdi mdi-flag mr-3 icon-lg text-danger"></i>
-                    <div class="d-flex flex-column justify-content-around">
-                      <small class="mb-1 text-muted">Flagged</small>
-                      <h5 class="mr-2 mb-0">3497843</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane fade" id="purchases" role="tabpanel" aria-labelledby="purchases-tab">
-                    <h4 class="text-center font-weight-bold">Available coin plan</h4>
 
+
+                  <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                    <i class=" mdi mdi-repeat  mr-3 icon-lg text-warning"></i>
+                    <div class="d-flex flex-column justify-content-around">
+                      <small class="mb-1 text-muted">Investment progress</small>
+                      <h5 class="mr-2 mb-0 investmentprogress" id="investment{{ $inv->id }}">hjggghgj</h5>
+                    </div>
+                  </div>
+
+                @empty
                 <div class="d-flex flex-wrap justify-content-xl-between">
                     <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                    <i class="mdi mdi-coin  icon-lg mr-3 text-primary"></i>
-                    <div class="d-flex flex-column justify-content-around">
-                      <small class="mb-1 text-muted">Coin 1</small>
-                      <h5 class="mb-0 d-inline-block"> <span class=" mdi mdi-currency-ngn "></span> 212121</h5>
+                      <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
+                      <div class="d-flex flex-column justify-content-around">
+                        <small class="mb-1 text-muted">Start date</small>
+                       <h5 class="mb-0 d-inline-block">26 Jul 2018</h5>
 
+                      </div>
                     </div>
-                  </div>
-                  <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                    <i class="mdi mdi-coin  icon-lg mr-3 text-primary"></i>
-                    <div class="d-flex flex-column justify-content-around">
-                      <small class="mb-1 text-muted">Coin 2</small>
-                      <h5 class="mb-0 d-inline-block"> <span class=" mdi mdi-currency-ngn "></span> 212121</h5>
+                    <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                      <i class="mdi mdi-download mr-3 icon-lg text-warning"></i>
+                      <div class="d-flex flex-column justify-content-around">
+                        <small class="mb-1 text-muted">Downloads</small>
+                        <h5 class="mr-2 mb-0">2233783</h5>
+                      </div>
+                    </div>
+                    <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                      <i class="mdi mdi-eye mr-3 icon-lg text-success"></i>
+                      <div class="d-flex flex-column justify-content-around">
+                        <small class="mb-1 text-muted">Total views</small>
+                        <h5 class="mr-2 mb-0">9833550</h5>
+                      </div>
+                    </div>
+                    <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                      <i class="mdi mdi-currency-usd mr-3 icon-lg text-danger"></i>
+                      <div class="d-flex flex-column justify-content-around">
+                        <small class="mb-1 text-muted">Revenue</small>
+                        <h5 class="mr-2 mb-0">$577545</h5>
+                      </div>
+                    </div>
+                    <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                      <i class="mdi mdi-flag mr-3 icon-lg text-danger"></i>
+                      <div class="d-flex flex-column justify-content-around">
+                        <small class="mb-1 text-muted">Flagged</small>
+                        <h5 class="mr-2 mb-0">3497843</h5>
+                      </div>
+                    </div>
+                </div>
 
-                    </div>
-                  </div>
-                  <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                    <i class="mdi mdi-coin  icon-lg mr-3 text-primary"></i>
-                    <div class="d-flex flex-column justify-content-around">
-                      <small class="mb-1 text-muted">Coin 3</small>
-                      <h5 class="mb-0 d-inline-block"> <span class=" mdi mdi-currency-ngn "></span> 212121</h5>
+                @endforelse
+              </div>
+              <div class="tab-pane fade" id="purchases" role="tabpanel" aria-labelledby="purchases-tab">
+                    <h4 class="text-center font-weight-bold my-2">Available coin plan</h4>
+                <div class="d-flex flex-wrap justify-content-xl-between">
+                    @forelse ($coins as $coin)
+                    <a href="">
+                    <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                        <i class="mdi mdi-coin  icon-lg mr-3 text-primary"></i>
+                        <div class="d-flex flex-column justify-content-around">
+                          <small class="mb-1 text-muted">{{ $coin->quantity }} wrap coin</small>
+                          <h5 class="mb-0 d-inline-block"> <span class=" mdi mdi-currency-ngn "></span> {{ number_format($coin->price, 2, '.', ',') }}</h5>
 
+                        </div>
                     </div>
-                  </div>
-                  <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                    <i class="mdi mdi-coin  icon-lg mr-3 text-primary"></i>
-                    <div class="d-flex flex-column justify-content-around">
-                      <small class="mb-1 text-muted">Coin 1</small>
-                      <h5 class="mb-0 d-inline-block"> <span class=" mdi mdi-currency-ngn "></span> 212121</h5>
+                </a>
+                    @empty
 
-                    </div>
-                  </div>
-                  <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                    <i class="mdi mdi-coin  icon-lg mr-3 text-primary"></i>
-                    <div class="d-flex flex-column justify-content-around">
-                      <small class="mb-1 text-muted">Coin 1</small>
-                      <h5 class="mb-0 d-inline-block"> <span class=" mdi mdi-currency-ngn "></span> 212121</h5>
+                    <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                        <i class="mdi mdi-coin  icon-lg mr-3 text-primary"></i>
+                        <div class="d-flex flex-column justify-content-around">
+                          <small class="mb-1 text-muted">Unavailable</small>
+                          <h5 class="mb-0 d-inline-block"> <span class=" mdi mdi-currency-ngn "></span> 000.00</h5>
 
-                    </div>
-                  </div>
+                        </div>
+                      </div>
+                    @endforelse
+
                 </div>
               </div>
             </div>
@@ -156,11 +179,15 @@
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-7 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <p class="card-title text-uppercase">Profile details</p>
+            <p class="card-title text-uppercase" id="pro" onload="countdown(this.id  ,'dgdfgdfgdfgdfg')">Profile details
+
+
+            </p>
             <div class="row">
                 <div class="col-md-6">
                     <img src="{{ asset('images/admin.jpg') }}" class="card-img" alt="">
@@ -222,8 +249,8 @@
             <p class="card-title">Referral balance</p>
             <h1><span class=" mdi mdi-currency-ngn "></span> {{ number_format($investor->referra_bonus , 2, '.', ',') }}</h1>
             <hr>
-            <p class="card-title">Total balance</p>
-            <h1><span class=" mdi mdi-currency-ngn "></span> {{ number_format($investor->balance+$investor->referra_bonus, 2, '.', ',') }}</h1>
+            {{--  <p class="card-title">Total balance</p>
+            <h1><span class=" mdi mdi-currency-ngn "></span> {{ number_format($investor->balance+$investor->referra_bonus, 2, '.', ',') }}</h1>  --}}
         </div>
       </div>
     </div>
@@ -231,7 +258,7 @@
       <div class="col-md-12 stretch-card">
         <div class="card">
           <div class="card-body">
-            <p class="card-title">Recent Purchases</p>
+            <p class="card-title">Recent Transaction</p>
             <div class="table-responsive">
               <table id="transaction" class="table">
                 <thead>
@@ -283,6 +310,20 @@ function fileCopy(text) {
   $("#toast").text(text);
   $('.toast').toast('show');
 
+}
+
+function countdown(id, date){
+    // console.log(id);
+    //
+    // fdsfds
+    // dasdas
+    // $("#"+id).ready(function(){
+    //     console.log($(this));
+    //     // a$(this))
+    // })
+    // $(document).on('load', '#'+id, function(){
+    //     console.log($(this));
+    // })
 }
         $(document).ready(function() {
             // $(".select2").select2();

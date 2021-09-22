@@ -1,15 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\investor;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Coin;
-use App\Models\Investor;
-use App\Models\investor\Investment;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class InvestorController extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,14 +15,6 @@ class InvestorController extends Controller
     public function index()
     {
         //
-        // return date("Y-m-d" ,strtotime("+30 day"));
-
-        $investor = Investor::with(['user'])->where('user_id', Auth::user()->id)->first();
-        // return $investor;
-        $invs = Investment::with(['investor', 'coin'])->where('investor_id', $investor->id)->get();
-        // return $invs;
-        $coins = Coin::where('status', 'active')->paginate(5);
-        return view('users.investor.index', compact(['investor', 'invs', 'coins']));
     }
 
     /**
@@ -53,10 +41,10 @@ class InvestorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Transaction $transaction)
     {
         //
     }
@@ -64,10 +52,10 @@ class InvestorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Transaction $transaction)
     {
         //
     }
@@ -76,10 +64,10 @@ class InvestorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Transaction $transaction)
     {
         //
     }
@@ -87,10 +75,10 @@ class InvestorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Transaction $transaction)
     {
         //
     }
