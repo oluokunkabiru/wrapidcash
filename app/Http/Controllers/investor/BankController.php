@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\investor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Investor;
+use App\Models\investor\Investment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BankController extends Controller
 {
@@ -41,8 +44,19 @@ class BankController extends Controller
 
 
     public function withdrawRequest(){
-        return "Withdraw requst here";
+        $investor = Investor::where('user_id', Auth::user()->id)->with(['user'])->first();
+        $invs = Investment::with(['investor', 'coin'])->where('investor_id', $investor->id)->get();
+        return view('users.investor.withdraw-request', compact(['invs']));
     }
+
+
+    public function withdrawMyMoney($id){
+        $investor = Investor::where('user_id', Auth::user()->id)->with(['user'])->first();
+        $inv = Investment::with(['investor', 'coin'])->where('id', $id)->first();
+        return $inv;
+        return view('users.investor.withdraw-request', compact(['invs']));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

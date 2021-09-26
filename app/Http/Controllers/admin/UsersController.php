@@ -58,6 +58,25 @@ class UsersController extends Controller
         //
     }
 
+    public function readNotification($id){
+        // return $id;
+        $userUnreadNotification= auth()->user()->notifications->find($id);
+        // return $userUnreadNotification;
+        if($userUnreadNotification) {
+            $userUnreadNotification->markAsRead();
+            return back();
+        }
+
+    }
+    public function readAllNotification(){
+        $notification = auth()->user()->unreadNotifications;
+        // return $notification;
+        if($notification) {
+            $notification->markAsRead();
+        }
+        return redirect()->back();
+
+    }
     /**
      * Display the specified resource.
      *

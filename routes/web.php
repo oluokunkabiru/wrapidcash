@@ -45,6 +45,8 @@ Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
     Route::get('/account-setting', 'investor\BankController@accountSetting')->name('account_setting');
     Route::get('/transaction-history', 'investor\BankController@transactionHistory')->name('transaction_history');
     Route::get('/withdraw-request', 'investor\BankController@withdrawRequest')->name('withdraw-request');
+    Route::get('/request-withdraw/{id}/{name}/paynebt', 'investor\BankController@withdrawMyMoney')->name('request-my-money');
+
     Route::resource('coin', 'investor\CoinController');
     Route::resource('investment', 'InvestmentController');
     Route::get('coin-detal/{id}/order-now', 'investor\CoinController@coinDetail')->name('order-coin');
@@ -52,4 +54,9 @@ Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
     Route::post('/pay', 'investor\PaymentController@redirectToGateway')->name('pay');
     Route::get('/payment/callback', 'investor\PaymentController@handleGatewayCallback');
     //end paystack
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('mark-as-read/{id}', 'admin\UsersController@readNotification')->name('mark-as-read');
+    Route::get('mark-all-as-read', 'admin\UsersController@readAllNotification')->name('mark-all-as-read');
+
 });

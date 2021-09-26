@@ -7,8 +7,12 @@ use App\Models\Coin;
 use App\Models\Investor;
 use App\Models\investor\Investment;
 use App\Models\Referral;
+use App\Models\Transaction;
+use App\Models\User;
+use App\Notifications\InvestorNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class InvestmentController extends Controller
 {
@@ -51,20 +55,37 @@ class InvestmentController extends Controller
         $investor = Investor::where('user_id', Auth::user()->id)->first();
         $invest->investor_id = $investor->id;
         $invest->payment = "transfer";
+        $invest->invest_amount = $coin->price;
+        $invest->expected_amount = $coin->price+($coin->price*0.033333*30);
+
         if($ref->investor_id){
             $previousinv = Investment::where('investor_id', $investor->id)->first();
             if(!$previousinv){
-                $refbonus = Investor::where('id', $ref->investor_id)->first();
+                $refbonus = Investor::with(['user'])->where('id', $ref->investor_id)->first();
                 // return $ref;
                 $currentBal = $refbonus->referral_bonus;
                 $refbonu = $coin->price*0.05;
                 $currentBal += $refbonu;
                 $refbonus->referral_bonus = $currentBal;
                 $refbonus->update();
+                $bg ="bg-success";
+                $icon = "mdi mdi-cash-multiple";
+                $message ='You buy '. $coin->quantity." with cash";
+                Notification::send($refbonus->user, new InvestorNotification($bg, $icon, $message));
             }
         }
 
         $invest->save();
+        $bg ="bg-warning";
+        $icon = "mdi mdi-cash-multiple";
+        $message ='You buy '. $coin->quantity." with cash";
+        Notification::send(Auth::user(), new InvestorNotification($bg, $icon, $message));
+        $transaction = new Transaction();
+        $transaction->investment_id = $invest->id;
+        $transaction->price = $coin->price;
+        $transaction->action = "Purchase ". $coin->quantity. ' wrap coin by transfer';
+        $transaction->user_id = Auth::user()->id;
+        $transaction->save();
         return redirect()->route('usersdashboard')->with('success', 'You have invested');
 
 
@@ -76,9 +97,12 @@ class InvestmentController extends Controller
      * @param  \App\Models\investor\Investment  $investment
      * @return \Illuminate\Http\Response
      */
-    public function show(Investment $investment)
+    public function show($id)
     {
         //
+        // return User::first();
+        $inv = Investment::with(['coin'])->where('id', $id)->first();
+        return view('users.investor.investment-details', compact(['inv']));
     }
 
     /**

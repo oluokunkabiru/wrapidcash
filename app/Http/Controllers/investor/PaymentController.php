@@ -7,8 +7,11 @@ use App\Models\Coin;
 use App\Models\Investor;
 use App\Models\investor\Investment;
 use App\Models\Referral;
+use App\Models\Transaction;
+use App\Notifications\InvestorNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Redirect;
 use Unicodeveloper\Paystack\Facades\Paystack;
 
@@ -28,6 +31,7 @@ class PaymentController extends Controller
     public function redirectToGateway()
     {
         try{
+            // return dd(Paystack::getAuthorizationUrl());
             return Paystack::getAuthorizationUrl()->redirectNow();
         }catch(\Exception $e) {
             return dd($e);
@@ -45,6 +49,8 @@ class PaymentController extends Controller
 
 
         // return $paymentDetails;
+        $reference = $paymentDetails['data']['reference'];
+        // return $ref;
 
         $coinid =  $paymentDetails['data']['metadata']['coinid'];
         $invest = new Investment();
@@ -56,23 +62,47 @@ class PaymentController extends Controller
         $invest->investor_id = $investor->id;
         $invest->payment = "card";
         $invest->status = "active";
+        $invest->ref = $reference;
         $invest->invest_date = date('Y-m-d');
+        $invest->invest_amount = $coin->price;
+        $invest->expected_amount = $coin->price+($coin->price*appSettings()->investment_percentage*appSettings()->investment_duration);
+        $invest->revenue = $coin->price*appSettings()->investment_percentage;
 
-        $invest->end_date = date("Y-m-d" ,strtotime("+30 day"));
+        $invest->end_date = date("Y-m-d" ,strtotime("+".appSettings()->investment_duration." day"));
         if($ref->investor_id){
             $previousinv = Investment::where('investor_id', $investor->id)->first();
             if(!$previousinv){
-                $refbonus = Investor::where('id', $ref->investor_id)->first();
+                $refbonus = Investor::with(['user'])->where('id', $ref->investor_id)->first();
                 // return $ref;
                 $currentBal = $refbonus->referral_bonus;
-                $refbonu = $coin->price*0.05;
+                $refbonu = $coin->price*appSettings()->referral_percentage;
                 $currentBal += $refbonu;
                 $refbonus->referral_bonus = $currentBal;
                 $refbonus->update();
+                $bg ="bg-success";
+                $icon = "mdi mdi-cash-multiple";
+                $message ='You received'. $refbonu." from ". Auth::user()->name;
+                Notification::send($refbonus->user, new InvestorNotification($bg, $icon, $message));
+                $transaction = new Transaction();
+                $transaction->price = $refbonu;
+                $transaction->action = "Received bonus from referral";
+                $transaction->user_id = $refbonus->user->id;
+                $transaction->save();
+
             }
         }
 
         $invest->save();
+        $bg ="bg-success";
+        $icon = "mdi mdi-cash-multiple";
+        $message ='You buy '. $coin->quantity." with credit card";
+        Notification::send(Auth::user(), new InvestorNotification($bg, $icon, $message));
+        $transaction = new Transaction();
+        $transaction->investment_id = $invest->id;
+        $transaction->price = $coin->price;
+        $transaction->action = "Purchase ". $coin->quantity. ' wrap coin by credit card';
+        $transaction->user_id = Auth::user()->id;
+        $transaction->save();
         return redirect()->route('usersdashboard')->with('success', 'You have invested');
 
         // return $offender;

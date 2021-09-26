@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Coin;
 use App\Models\Investor;
 use App\Models\investor\Investment;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,9 +25,12 @@ class InvestorController extends Controller
         $investor = Investor::with(['user'])->where('user_id', Auth::user()->id)->first();
         // return $investor;
         $invs = Investment::with(['investor', 'coin'])->where('investor_id', $investor->id)->get();
+        $activeinvestment = Investment::with(['investor', 'coin'])->where(['investor_id'=> $investor->id, ])->get();
         // return $invs;
         $coins = Coin::where('status', 'active')->paginate(5);
-        return view('users.investor.index', compact(['investor', 'invs', 'coins']));
+        $transactions = Transaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->with(['user', 'investment'])->get();
+
+        return view('users.investor.index', compact(['investor', 'invs', 'coins', 'transactions']));
     }
 
     /**
