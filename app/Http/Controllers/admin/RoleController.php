@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\InvestorNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
@@ -15,7 +19,8 @@ class RoleController extends Controller
     public function index()
     {
         //
-        return view('users.admin.role.index');
+        $roles = Role::orderBy('id', 'desc')->get();
+        return view('users.admin.role.index', compact(['roles']));
     }
 
     /**
@@ -37,6 +42,14 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
+        Role::create(['name' => $request->role]);
+        $bg ="bg-info";
+        $icon = "mdi mdi-account-key";
+        $message ='You added new role ' .$request->role;
+        Notification::send(Auth::user(), new InvestorNotification($bg, $icon, $message));
+
+        return redirect()->back()->with('success', 'New role '. $request->role. ' added success');
+
     }
 
     /**
@@ -71,6 +84,16 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $role = Role::where('id', $id)->first();
+        $role->name = $request->role;
+        $role->update();
+        $bg ="bg-warning";
+        $icon = "mdi mdi-table-edit ";
+        $message ='You edit role  ' .$request->role;
+        Notification::send(Auth::user(), new InvestorNotification($bg, $icon, $message));
+
+        return redirect()->back()->with('success', 'Role '. $role->name. ' updated successfully');
+
     }
 
     /**
@@ -82,5 +105,14 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
+        $role = Role::where('id', $id)->first();
+        $role->forceDelete();
+        $bg ="bg-danger";
+        $icon = " mdi mdi-delete  ";
+        $message ='You delete ' .$role->name;
+        Notification::send(Auth::user(), new InvestorNotification($bg, $icon, $message));
+
+        return redirect()->back()->with('delete', 'Role '. $role->name. ' deleted successfully');
+
     }
 }

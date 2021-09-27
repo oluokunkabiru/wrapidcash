@@ -1,4 +1,4 @@
-@extends('users.layout.app')
+@extends('users.admin.layout.app')
 @section('title', 'Manage roles')
 @section('content')
 
@@ -22,7 +22,7 @@
                 </div>
                 <div class="float-right mr-2">
                     <select name="role" class="custom-select-sm select2" id="selectrole">
-                        <option value="{{ Auth::user()->getRoleNames()[0] }}" id="{{ Auth::user()->roles->first()->id }}" selected>{{ Auth::user()->getRoleNames()[0] }}</option>
+                        {{--  <option value="{{ Auth::user()->getRoleNames()[0] }}" id="{{ Auth::user()->roles->first()->id }}" selected>{{ Auth::user()->getRoleNames()[0] }}</option>  --}}
                         @forelse ($roles as $role)
                         <option value="{{ $role->name }}" id="{{ $role->id }}">{{ ucwords($role->name) }}</option>
                         @empty
@@ -37,7 +37,7 @@
                     <div id="accordion">
                         @forelse ($roles as $role)
 
-                        <div  data-parent="#accordion" class="activerole collapse {{ Auth::user()->getRoleNames()[0]==$role->name?"show": "" }}" id="therole{{ $role->id }}">
+                        <div  data-parent="#accordion" class="activerole collapse {{ "show"  /*Auth::user()->getRoleNames()[0]==$role->name?"show": ""*/ }}" id="therole{{ $role->id }}">
                             <h3 class="text-danger text-center" id="rolename">{{ $role->name }}</h3>
                             <div class="row" >
                                 @forelse ($permisions as $permission)
@@ -76,10 +76,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            setInterval(() => {
-                $("#numbersOfAttendee").load(" #numbersOfAttendee");
 
-            }, 6000);
 
 
             // Select2

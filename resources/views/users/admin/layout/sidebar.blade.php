@@ -50,7 +50,12 @@
         </a>
       </li>
 
-
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('site-setting') }}">
+          <i class=" mdi mdi-settings  menu-icon"></i>
+          <span class="menu-title">Investment setting</span>
+        </a>
+      </li>
     </ul>
   </nav>
   <!-- partial -->

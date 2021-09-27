@@ -1,4 +1,4 @@
-@extends('users.layout.app')
+@extends('users.admin.layout.app')
 @section('title', 'Manage roles')
 @section('content')
 
@@ -63,10 +63,10 @@
                                 <td>
                                     <div class="row">
                                         <a href="#editrole" rolename="{{ ucwords($role->name) }}" editurl="{{ route('role.update', $role->id) }}" data-toggle="modal" class="badge badge-pill badge-warning mx-1"><span
-                                                class="fa fa-edit p-1 text-white"></span></a>
+                                                class="mdi mdi-tooltip-edit  p-1 text-white"></span></a>
                                         <a href="#deleterole" data-toggle="modal" rolename="{{ ucwords($role->name) }}" deurl="{{ route('role.destroy', $role->id) }}"
                                             class="badge badge-pill badge-danger mx-1"><span
-                                                class="fa fa-trash p-1 text-white"></span></a>
+                                                class="mdi mdi-delete  p-1 text-white"></span></a>
                                     </div>
                                 </td>
                                 </tr>

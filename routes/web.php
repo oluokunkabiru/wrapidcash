@@ -34,6 +34,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('wrap-coin', 'admin\CoinController');
     Route::resource('role', 'admin\RoleController');
     Route::resource('permission', 'admin\PermissionController');
+    Route::resource('site-configuration', 'admin\AdminControler');
+    Route::post('remove-permission', 'admin\PermissionController@removepermission')->name('remove-permission');
+    Route::get('/site-settin/configuration', 'admin\AdminControler@create')->name('site-setting');
     Route::get('/disabled/{id}/wrap-coin', 'admin\CoinController@disable')->name('disabled-wrap-coin');
     Route::get('/enabled/{id}/wrap-coin', 'admin\CoinController@enable')->name('enabled-wrap-coin');
     Route::get('/disabled/{id}/users', 'admin\UsersController@disables')->name('disabled-user');
