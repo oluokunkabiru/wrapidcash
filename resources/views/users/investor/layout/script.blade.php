@@ -21,4 +21,5 @@
   <script src="{{ asset('assets/js/dataTables.bootstrap4.js') }}"></script>
 <script src="{{ asset('assets/jquery.countdown/jquery.countdown.min.js') }}"></script>
   <script src="{{ asset('assets/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
+  <script src="{{ asset('assets/select2/dist/js/select2.full.min.js') }}"></script>
   <script src="{{ asset('assets/vendors/datatables/datatables.min.js') }}"></script>

@@ -65,11 +65,11 @@
         </li>
         <li class="nav-item nav-profile dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-            <img src="{{ asset('front-asset/images/coins.jpg') }}" alt="profile"/>
+            <img src="{{  Auth::user()->getMedia('avatar')->first() ? Auth::user()->getMedia('avatar')->first()->getFullUrl(): asset('front-asset/images/coins.jpg') }}" alt="profile"/>
             <span class="nav-profile-name">{{ ucwords(Auth::user()->name) }}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-            <a class="dropdown-item">
+            <a class="dropdown-item" href="{{ route('profile-setting') }}">
               <i class="mdi mdi-settings text-primary"></i>
               Settings
             </a>

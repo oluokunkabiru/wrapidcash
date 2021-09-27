@@ -19,6 +19,12 @@
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
+                @if(session('success'))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Success ! </strong> {{ session('success') }}
+                </div>
+                @endif
                 <div class="card-body dashboard-tabs p-0">
                     <ul class="nav nav-tabs px-4" role="tablist">
                         <li class="nav-item">
@@ -42,13 +48,13 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <p class="card-title text-uppercase" id="pro"
-                                                onload="countdown(this.id  ,'dgdfgdfgdfgdfg')">Profile details
+                                               >Profile details
 
 
                                             </p>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <img src="{{ asset('images/admin.jpg') }}" class="card-img"
+                                                    <img src="{{ Auth::user()->getMedia('avatar')->first()?Auth::user()->getMedia('avatar')->first()->getFullUrl():asset('images/avatar/img_avatar3.png') }}" class="card-img"
                                                         alt="">
                                                 </div>
                                                 <div class="col-md-6">
@@ -97,6 +103,24 @@
                                             <p class=" mdi mdi-content-copy " onclick="fileCopy(this.id)"
                                                 id="{{ route('investor-referral', $investor->username) }}">
                                             </p>
+
+                                            @if (Auth::user()->account_number)
+                                            <div class="jumbotron">
+                                                <div class="row">
+                                                    <h5 class="col-6">Bank name</h5>
+                                                    <h5 class="col-6 font-weight-bold">{{ Auth::user()->bank->name }}</h5>
+                                                    <hr>
+                                                    <h5 class="col-6">Bank account name</h5>
+                                                    <h5 class="col-6 font-weight-bold">{{ Auth::user()->account_name }}</h5>
+                                                    <hr>
+                                                    <h5 class="col-6">Bank account number</h5>
+                                                    <h5 class="col-6 font-weight-bold">{{ Auth::user()->account_number }}</h5>
+
+                                                </div>
+                                              </div>
+                                            @else
+                                            <h3 class="text-danger my-2 font-weight-bold">Update your bank details</h3>
+                                            @endif
                                         </div>
                                         <div class="toast" data-autohide="true">
                                             <div class="toast-body">
@@ -114,7 +138,11 @@
                                             <hr>
                                             <p class="card-title">Referral balance</p>
                                             <h1><span class=" mdi mdi-currency-ngn "></span>
-                                                {{ number_format($investor->referra_bonus, 2, '.', ',') }}</h1>
+                                                {{ number_format($investor->referral_bonus, 2, '.', ',') }}</h1>
+                                                @if ($investor->referral_bonus >= appSettings()->referral_max_withdraw )
+                                                <a href="" class="btn btn-success btn-rounded"> Withdraw your referral bonus</a>
+
+                                                @endif
                                             <hr>
 
                                         </div>
@@ -141,7 +169,7 @@
                                         <div class="d-flex flex-column justify-content-around">
                                             <small class="mb-1 text-muted">Investment start</small>
                                             <h5 class="mb-0 d-inline-block">
-                                                {{ $inv->end_date ? date('d, M Y', strtotime($inv->invest_date)) : 'Not yet approved' }}
+                                                {!! $inv->end_date ? date('d, M Y', strtotime($inv->invest_date)) : '<span class="text-danger font-weight-bold">Pending</span>' !!}
                                             </h5>
 
                                         </div>
@@ -152,7 +180,7 @@
                                         <div class="d-flex flex-column justify-content-around">
                                             <small class="mb-1 text-muted">Investment end</small>
                                             <h5 class="mb-0 d-inline-block">
-                                                {{ $inv->end_date ? date('d, M Y', strtotime($inv->end_date)) : 'Not yet approved' }}
+                                                {!! $inv->end_date ? date('d, M Y', strtotime($inv->end_date)) : '<span class="text-danger font-weight-bold">Pending</span>' !!}
                                             </h5>
 
                                         </div>
@@ -192,7 +220,6 @@
 
 
                     <div class="tab-pane fade" id="purchase" role="tabpanel" aria-labelledby="purchases-tab">
-                        <h4 class="text-center font-weight-bold my-2">Available coin plan</h4>
                         <div class="d-flex flex-wrap justify-content-xl-between">
                             <div class="row">
                                 <div class="col-md-12 stretch-card">
@@ -234,7 +261,7 @@
                                                             </tr>
 
                                                         @empty
-
+                                                            <h4 class="text-danger">No active transaction</h4>
                                                         @endforelse
 
                                                     </tbody>

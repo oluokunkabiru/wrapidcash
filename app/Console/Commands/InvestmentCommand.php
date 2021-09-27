@@ -49,7 +49,7 @@ class InvestmentCommand extends Command
                 $invm = Investment::with(['investor', 'coin'])->find($inv->id);
                 $revenue = 0;
                 // 86400
-                for ( $i = $startTime; $i <= $today; $i = $i + 60 ) {
+                for ( $i = $startTime; $i <= $today; $i = $i + 60*60 ) {
                     $revenue += $inv->coin->price* appSettings()->investment_percentage;
                     }
                 $invm->revenue = $revenue;

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InvestorUpdateProfile;
 use App\Http\Requests\TransferRequest;
+use App\Models\Bank;
 use App\Models\Coin;
 use App\Models\Investor;
 use App\Models\investor\Investment;
@@ -114,6 +116,9 @@ class InvestmentController extends Controller
     public function edit(Investment $investment)
     {
         //
+        $banks = Bank::get();
+        return view('users.investor.profile-setting', compact(['banks']));
+
     }
 
     /**
@@ -123,9 +128,10 @@ class InvestmentController extends Controller
      * @param  \App\Models\investor\Investment  $investment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Investment $investment)
+    public function update(InvestorUpdateProfile $request, Investment $investment)
     {
         //
+        return $request;
     }
 
     /**

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class User extends Authenticatable implements HasMedia
 {
@@ -46,6 +47,16 @@ class User extends Authenticatable implements HasMedia
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('avatar')
+            ->width(50)
+            ->height(50)
+            ->withResponsiveImages();
+    }
+
     public function timeago($date) {
         $timestamp = strtotime($date);
 
@@ -70,4 +81,9 @@ class User extends Authenticatable implements HasMedia
     public function referral(){
         return $this->belongsTo('App\Models\Referral');
     }
+    public function bank(){
+        return $this->belongsTo('App\Models\Bank');
+    }
+
+
 }

@@ -119,6 +119,7 @@ ul#example li p {
                 </div>
                 <div class="card-body">
                     <ul id="example">
+                        @if ($inv->end_date)
                         <li><span class="days">00</span>
                             <p class="days_text">Days</p>
                         </li>
@@ -135,6 +136,10 @@ ul#example li p {
                         <li><span class="seconds">00</span>
                             <p class="seconds_text">Seconds</p>
                         </li>
+                        @else
+                        <li><span class="text-danger seconds">Not yet approve</span>
+                        </li>
+                        @endif
                     </ul>
                 </div>
 
@@ -152,11 +157,13 @@ ul#example li p {
                     </div>
 
                     <div class="row">
-                        <h6 class="text-muted col">Balance : </h6>
-                        <h6 class="text-dark col font-weight-bold"><span class=" mdi mdi-currency-ngn "></span> {{ number_format($inv->coin->price, 2, '.', ',') }}</h6>
+                        <h6 class="text-muted col">Balance earn : </h6>
+                        <h6 class="text-dark col font-weight-bold"><span class=" mdi mdi-currency-ngn "></span> {{ number_format($inv->revenue, 2, '.', ',') }}</h6>
                     </div>
-                    @if (date("Y-m-d : H:s:i") <= $inv->end_date)
-                    <a href="" class="btn btn-warning btn-rounded m-2 disabled font-weight-bold">Pending</a>
+                    @if (!$inv->end_date)
+                    <a href="" class="btn btn-danger btn-rounded m-2 disabled font-weight-bold">Pending</a>
+                    @elseif (date("Y-m-d : H:s:i") <= $inv->end_date)
+                    <a href="" class="btn btn-warning btn-rounded m-2 disabled font-weight-bold">Progressing..  <span class="spinner-border spinner-border-sm"></span></a>
 
                     @else
                     <a href="{{ route('request-my-money', [$inv->id, str_replace(" ", "-", Auth::user()->name)]) }}" class="btn btn-primary btn-rounded m-2 font-weight-bold"> Withdraw now</a>
@@ -188,7 +195,12 @@ ul#example li p {
     $('.adv').html("in advance");
    }).on('finish.countdown', function(event){
     var $this = $(this).html(event.strftime(''
+    @if ($inv->end_date)
     +'<li><span class="hap">Completed</span></li>'
+    @else
+    +'<li><span class="text-danger hap">Not yet approve</span></li>'
+    @endif
+
     ))
    });
     })

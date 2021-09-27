@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         Commands\InvestmentCommand::class,
+        commands\InvestmentBalance::class,
     ];
 
     /**
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('investments:create')->everyMinute();
+        $schedule->command('investments:balance')->everyMinute();
         // ->skip(function () {return true;});
     }
 

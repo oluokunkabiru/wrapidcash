@@ -46,13 +46,15 @@ Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
     Route::get('/transaction-history', 'investor\BankController@transactionHistory')->name('transaction_history');
     Route::get('/withdraw-request', 'investor\BankController@withdrawRequest')->name('withdraw-request');
     Route::get('/request-withdraw/{id}/{name}/paynebt', 'investor\BankController@withdrawMyMoney')->name('request-my-money');
-
+    Route::post('/get-account-details', 'investor\BankController@validateAccountNumber')->name('get-account-details');
     Route::resource('coin', 'investor\CoinController');
     Route::resource('investment', 'InvestmentController');
+    Route::resource('investor', 'investor\InvestorController');
     Route::get('coin-detal/{id}/order-now', 'investor\CoinController@coinDetail')->name('order-coin');
     // paystack
     Route::post('/pay', 'investor\PaymentController@redirectToGateway')->name('pay');
     Route::get('/payment/callback', 'investor\PaymentController@handleGatewayCallback');
+    Route::get('/profile/settings', 'InvestmentController@edit')->name('profile-setting');
     //end paystack
 });
 Route::middleware(['auth'])->group(function () {

@@ -7,12 +7,8 @@
           <span class="menu-title">Dashboard</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('account_setting') }}">
-          <i class=" mdi mdi-account-card-details menu-icon"></i>
-          <span class="menu-title">Account setting</span>
-        </a>
-      </li>
+      @if (Auth::user()->account_number)
+
       <li class="nav-item">
         <a class="nav-link" href="{{ route('transaction_history') }}">
           <i class="mdi mdi-history menu-icon"></i>
@@ -31,6 +27,15 @@
           <span class="menu-title">Buyer coin</span>
         </a>
       </li>
+
+      @else
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="mdi mdi-coin  menu-icon"></i>
+          <span class="menu-title text-danger">Update your</span>
+        </a>
+      </li>
+      @endif
 
 
 

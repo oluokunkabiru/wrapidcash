@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\investor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use App\Models\Investor;
 use App\Models\investor\Investment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class BankController extends Controller
 {
@@ -31,16 +33,25 @@ class BankController extends Controller
 
     }
 
-    public function accountSetting(){
-        return view('users.investor.account-setting');
-    }
-
+   
 
     public function transactionHistory(){
         return view('users.investor.transaction-history') ;
     }
 
+    public function validateAccountNumber(Request $request){
+        // $test  = new Bank();
+        $code = $request->bank;
+        $accno = $request->accountnumber;
+        // return $code;
+        $response = Http::get('https://maylancer.org/api/nuban/api.php', [
+            'account_number' => $accno,
+            'bank_code' => $code,
+        ]);
 
+        $result = json_decode($response);
+        return $response; //$result->account_name;
+    }
 
 
     public function withdrawRequest(){
