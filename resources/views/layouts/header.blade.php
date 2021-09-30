@@ -12,7 +12,7 @@
 
             <div class="container">
               <div class="row align-items-center position-relative">
-                <img class="mr-3" style="max-width: 5%; height: auto;"  src="{{ asset('front-asset/images/rc_Logo.png') }}" alt="Rapid cash">
+                <img class="mr-3" style="max-width: 5%; height: auto;"  src="{{ appSettings()->getMedia('logo')->first()->getFullUrl() }}" alt="Rapid cash">
 
                   <div class="site-logo">
 
