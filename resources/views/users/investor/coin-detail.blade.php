@@ -42,14 +42,21 @@
                                     <div class="col-md-6">
                                         <img src="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}"
                                             class="card-img" alt="">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                  <span class="input-group-text">  <b>Quantity</b> </span>
+                                                </div>
+                                                <input type="number" value="1" step="1" id="qty" class="form-control">
+                                              </div>
+
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col">
-                                                <h6 class="text-muted">Quantity</h6>
+                                                <h6 class="text-muted">Name</h6>
                                             </div>
                                             <div class="col">
-                                                <h6 class="text-dark">{{ $coin->quantity }}</h6>
+                                                <h6 class="text-dark">{{ $coin->name }}</h6>
                                             </div>
                                         </div>
                                         <hr>
@@ -65,36 +72,12 @@
                                         <hr>
                                         <div class="row">
                                             <div class="col">
-                                                <h6 class="text-muted">Daily Profit</h6>
-                                            </div>
-                                            <div class="col">
-                                                <h6 class="text-dark"><span class="mdi mdi-currency-ngn"></span>
-                                                    {{ number_format($coin->price * appSettings()->investment_percentage, 2, '.', ',') }}
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col">
-                                                <h6 class="text-muted">End price</h6>
-                                            </div>
-                                            <div class="col">
-                                                <h6 class="text-dark"><span class="mdi mdi-currency-ngn "></span>
-                                                    {{ number_format($coin->price + $coin->price * appSettings()->investment_percentage * appSettings()->investment_duration, 2, '.', ',') }}
-                                                </h6>
-                                                {{-- <h6 class="text-dark"><span class="mdi mdi-currency-ngn "></span> {{ number_format($coin->price+($coin->price*0.033333*30), 2, '.', ',') }}</h6> --}}
-
-                                            </div>
-                                        </div>
-
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col">
                                                 <h6 class="text-muted">Transaction charge</h6>
                                             </div>
                                             <div class="col">
                                                 <h6 class="text-dark"><span class="mdi mdi-currency-ngn "></span>
-                                                    {{ number_format($coin->price * appSettings()->investment_charges, 2, '.', ',') }}
+                                                    <span id="dcharge">{{ number_format($coin->price * appSettings()->investment_charges, 2, '.', ',') }}</span>
+
                                                 </h6>
                                             </div>
                                         </div>
@@ -106,7 +89,8 @@
                                             </div>
                                             <div class="col">
                                                 <h6 class="text-dark"><span class="mdi mdi-currency-ngn "></span>
-                                                    {{ number_format($coin->price + $coin->price * appSettings()->investment_charges, 2, '.', ',') }}
+                                                    <span id="damount">{{ number_format($coin->price + $coin->price * appSettings()->investment_charges, 2, '.', ',') }}</span>
+
                                                 </h6>
                                             </div>
                                         </div>
@@ -129,9 +113,14 @@
                                         'value' => Auth::user()->phone,
                                     ],
                                     [
-                                        'display_name' => 'Coin Qunatity',
-                                        'variable_name' => 'qty',
-                                        'value' => strtoupper($coin->quantity),
+                                        'display_name' => 'Coin Quantity',
+                                        'variable_name' => 'Quantity',
+                                        'value' => 1,
+                                    ],
+                                    [
+                                        'display_name' => 'Coin Name',
+                                        'variable_name' => 'coin' ,
+                                        'value' => $coin->name,
                                     ],
                                     [
                                         'display_name' => 'Investment status',
@@ -160,12 +149,11 @@
                             {{-- required --}}
                             @csrf
                             <input type="hidden" name="reference" value="{{ 'KOADIT_' . Auth::user()->phone . '_' . time() }}">
-                            <input type="hidden" name="amount"
-                                value="{{ ($coin->price + $coin->price * appSettings()->investment_charges) * 100 }}">
+                            <input type="hidden" id="pamount" name="amount" value="{{ ($coin->price + $coin->price * appSettings()->investment_charges) * 100 }}">
                             {{-- required in kobo --}}
-                            <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" id="pquantity" name="quantity" value="1">
                             <input type="hidden" name="currency" value="NGN">
-                            <input type="hidden" name="metadata" value="{{ json_encode($metadata) }}">
+                            <input type="hidden" id="metadata" name="metadata" value="{{ json_encode($metadata) }}">
                             {{-- For other necessary things you want to add to your payload. it is optional though --}}
                             {{-- <input type="hidden" name="" value="{{ Paystack::genTranxRef() }}"> required --}}
                             {{-- {{ csrf_field() }} works only when using laravel 5.1, 5.2 --}}
@@ -197,16 +185,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $i=0
+                                        @endphp
                                         @forelse ($banks as $bank)
-                                            <tr>
-                                                <td>{{ $bank->bank }}</td>
-                                                <td>{{ $bank->account_number }}</td>
-                                                <td>{{ $bank->account_name }}</td>
+                                        {{ $i++ }}
+                                        <tr>
+                                                <td>{{ $bank['bank'] }}</td>
+                                                <td>{{ $bank['account_number'] }}</td>
+                                                <td>{{ $bank['account_name'] }}</td>
                                             </tr>
                                         @empty
-                                            <tr>
-
-                                            </tr>
                                         @endforelse
 
                                     </tbody>
@@ -231,7 +220,7 @@
                                             </div>
                                             <div class="col">
                                                 <h6 class="text-dark"><span class="mdi mdi-currency-ngn "></span>
-                                                    {{ number_format($coin->price * appSettings()->investment_charges, 2, '.', ',') }}</h6>
+                                                   <span id="ccharge">{{ number_format($coin->price * appSettings()->investment_charges, 2, '.', ',') }}</span> </h6>
                                             </div>
                                         </div>
 
@@ -242,7 +231,7 @@
                                             </div>
                                             <div class="col">
                                                 <h6 class="text-dark"><span class="mdi mdi-currency-ngn "></span>
-                                                    {{ number_format($coin->price + $coin->price * appSettings()->investment_charges, 2, '.', ',') }}
+                                                   <span id="camount">{{ number_format($coin->price + $coin->price * appSettings()->investment_charges, 2, '.', ',') }}</span>
                                                 </h6>
                                             </div>
                                         </div>
@@ -263,6 +252,7 @@
                                         </div>
                                         @csrf
                                         <input type="hidden" name="coinid" value="{{ $coin->id }}">
+                                        <input type="hidden" id="cquantity" name="quantity" value="1">
 
                                         <div class="form-group">
                                             <label for="" class="font-weight-bold">Evidence of payment:</label>
@@ -299,3 +289,47 @@
 
     </div>
 @endsection
+@section('script')
+    <script>
+        $(document).ready(function(){
+            $(document).on('change', '#qty', function() {
+                var qty = $(this).val();
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    type: 'POST',
+                    url: '{{ route('quantity-pricing') }}',
+                    data: 'id={{ $coin->id }}'+"&qty="+qty,
+                    success: function(data) {
+                        var transaction = JSON.parse(data);
+                        // console.log(resp.quantity)
+                        // console.log(resp)
+                        $("#dcharge, #ccharge").text(transaction.charge)
+                        $("#damount, #camount").text(transaction.amount)
+                        $("#metadata").val(transaction.metadata)
+                        $("#pquantity, #cquantity").val(transaction.quantity)
+                        // $("").val(transaction.quantity)
+                        console.log(transaction.metadata)
+
+                        // if (resp.account_name !=null) {
+                        //     // alert("no null");
+                        //     $("#submit").removeAttr("disabled");
+                        //     $("#accountname").removeAttr("disabled");
+                        //     $("#accountname").val(resp.account_name)
+                        //     }else{
+                        //         // alert(resp.message);
+                        //         $("#invalidaccountnumber").text(resp.message)
+                        //         $("#accountnumber").attr("disabled", 'true')
+                        //         $("#submit").attr("disabled", 'true')
+                        //     }
+                            // alert(resp.message);
+                        // console.log(resp.message)
+                        // $("#zone").html(data)
+                    }
+                })
+            })
+        })
+    </script>
+@endsection
+

@@ -62,12 +62,12 @@
 {{--    --}}
                                                     <div class="col">
                                                         @if ($user->status =="active")
-                                                    <a href="#disableduser" status="{{ ucwords($user->status) }}" durl="{{ route('disabled-user', $user->id) }}" data-toggle="modal" name="{{ $user->name }}" email="{{ $user->email }}" phone="{{ $user->phone }}" img="{{ asset('images/admin.jpg') }}">
+                                                    <a href="#disableduser" status="{{ ucwords($user->status) }}" durl="{{ route('disabled-user', $user->id) }}" data-toggle="modal" name="{{ $user->name }}" email="{{ $user->email }}" phone="{{ $user->phone }}" img="{{ $user->getMedia('avatar')->first()?$user->getMedia('avatar')->first()->getFullUrl():asset('images/avatar/img_avatar3.png') }}">
                                                             <span class="badge badge-pill badge-info"><i
                                                                     class="mdi mdi-shuffle-disabled " data-toggle="tooltip" title="Disable wrap user"></i></span>
                                                         </a>
                                                         @else
-                                                    <a href="#enableduser" status="{{ ucwords($user->status) }}" eurl="{{ route('enable-user', $user->id) }}" data-toggle="modal" name="{{ $user->name }}" email="{{ $user->email }}" phone="{{ $user->phone }}" img="{{ asset('images/admin.jpg') }}" >
+                                                    <a href="#enableduser" status="{{ ucwords($user->status) }}" eurl="{{ route('enable-user', $user->id) }}" data-toggle="modal" name="{{ $user->name }}" email="{{ $user->email }}" phone="{{ $user->phone }}" img="{{ $user->getMedia('avatar')->first()?$user->getMedia('avatar')->first()->getFullUrl():asset('images/avatar/img_avatar3.png') }}" >
                                                             <span class="badge badge-pill badge-warning"><i
                                                                     class="mdi mdi-block-helper" data-toggle="tooltip" title="Enable wrap user"></i></span>
                                                         </a>
@@ -76,7 +76,7 @@
                                                     </div>
 
                                                     <div class="col">
-                                                        <a href="#viewuser" status="{{ ucwords($user->status) }}" data-toggle="modal" name="{{ $user->name }}" email="{{ $user->email }}" phone="{{ $user->phone }}" img="{{ asset('images/admin.jpg') }}">
+                                                        <a href="#viewuser" status="{{ ucwords($user->status) }}" data-toggle="modal" name="{{ $user->name }}" email="{{ $user->email }}" phone="{{ $user->phone }}" img="{{ $user->getMedia('avatar')->first()?$user->getMedia('avatar')->first()->getFullUrl():asset('images/avatar/img_avatar3.png') }}">
                                                             <span class="badge badge-pill badge-primary"><i
                                                                     class=" mdi mdi-eye  " data-toggle="tooltip" title="View Wrap details"></i></span>
                                                         </a>

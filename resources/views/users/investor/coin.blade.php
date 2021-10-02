@@ -20,7 +20,7 @@
                                 <img src="{{$coin->getMedia('coin-avatar')->first()->getFullUrl() }}" class="card-img" alt="">
                             </div>
                             <div class="col">
-                                <h6>{{ $coin->quantity }} Rash coin</h6>
+                                <h6>{{ $coin->name }}</h6>
                                 <h4> <span class=" mdi mdi-currency-ngn "></span> {{ number_format($coin->price, 2, '.', ',') }} </h4>
                             </div>
                         </div>

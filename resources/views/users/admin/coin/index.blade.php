@@ -45,7 +45,7 @@
                                 <thead>
                                     <tr>
                                         <th>S/N</th>
-                                        <th>Quantity</th>
+                                        <th>Name</th>
                                         <th>Price</th>
                                         <th>Total investors</th>
                                         <th>Icon</th>
@@ -63,7 +63,7 @@
 
                                         <tr>
                                             <td>{{ ++$sn }}</td>
-                                            <td>{{ $coin->quantity }}</td>
+                                            <td>{{ $coin->name }}</td>
                                             <td><i class=" mdi mdi-currency-ngn "></i>{{ $coin->price }}</td>
                                             <td> <span
                                                     class="badge badge-pill badge-success">{{ $coin->totalInvestor($coin->id) }}</span>
@@ -84,7 +84,7 @@
                                             <td>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <a href="#editcoin" editurl="{{ route('wrap-coin.update', $coin->id) }}" data-toggle="modal" qty="{{ $coin->quantity }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
+                                                        <a href="#editcoin" editurl="{{ route('wrap-coin.update', $coin->id) }}" data-toggle="modal" qty="{{ $coin->name }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
                                                             <span class="badge badge-pill badge-success" data-toggle="tooltip" title="Edit wrap coin" ><i
                                                                     class="mdi mdi-tooltip-edit"></i></span>
                                                         </a>
@@ -92,12 +92,12 @@
 
                                                     <div class="col">
                                                         @if ($coin->status =="active")
-                                                        <a href="#disabledcoin" status ="{{ ucwords($coin->status) }}" disableturl="{{ route('disabled-wrap-coin', $coin->id) }}" data-toggle="modal" qty="{{ $coin->quantity }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
+                                                        <a href="#disabledcoin" status ="{{ ucwords($coin->status) }}" disableturl="{{ route('disabled-wrap-coin', $coin->id) }}" data-toggle="modal" qty="{{ $coin->name }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
                                                             <span class="badge badge-pill badge-info"><i
                                                                     class="mdi mdi-shuffle-disabled " data-toggle="tooltip" title="Disable wrap coin"></i></span>
                                                         </a>
                                                         @else
-                                                        <a href="#enabledcoin" status ="{{ ucwords($coin->status) }}" disableturl="{{ route('enabled-wrap-coin', $coin->id) }}" data-toggle="modal" qty="{{ $coin->quantity }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
+                                                        <a href="#enabledcoin" status ="{{ ucwords($coin->status) }}" disableturl="{{ route('enabled-wrap-coin', $coin->id) }}" data-toggle="modal" qty="{{ $coin->name }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
                                                             <span class="badge badge-pill badge-warning"><i
                                                                     class="mdi mdi-block-helper" data-toggle="tooltip" title="Enable wrap coin"></i></span>
                                                         </a>
@@ -106,7 +106,7 @@
                                                     </div>
 
                                                     <div class="col">
-                                                        <a href="#viewcoin" status ="{{ ucwords($coin->status) }}" disableturl="{{ route('enabled-wrap-coin', $coin->id) }}" data-toggle="modal" qty="{{ $coin->quantity }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
+                                                        <a href="#viewcoin" status ="{{ ucwords($coin->status) }}" disableturl="{{ route('enabled-wrap-coin', $coin->id) }}" data-toggle="modal" qty="{{ $coin->name }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
                                                             <span class="badge badge-pill badge-primary"><i
                                                                     class=" mdi mdi-eye  " data-toggle="tooltip" title="View Wrap details"></i></span>
                                                         </a>
@@ -157,10 +157,10 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="">Wrap Quantity:</label>
-                                <input type="number" step="1" name="quantity"
-                                    class="form-control @error('quantity') is-invalid @enderror">
-                                @error('quantity')
+                                <label for="">Wrap name:</label>
+                                <input type="text" step="1" name="name"
+                                    class="form-control @error('name') is-invalid @enderror">
+                                @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -222,10 +222,10 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="">Wrap Quantity:</label>
-                                <input type="number" step="1" id="qty" name="quantity"
-                                    class="form-control @error('quantity') is-invalid @enderror">
-                                @error('quantity')
+                                <label for="">Wrap name:</label>
+                                <input type="text" step="1" id="qty" name="name"
+                                    class="form-control @error('name') is-invalid @enderror">
+                                @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -280,7 +280,7 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col">
-                                            <h3 class="text-muted">Quantity</h3>
+                                            <h3 class="text-muted">name</h3>
                                         </div>
                                         <div class="col">
                                             <h3 class="text-dark" id="dqty"></h3>
@@ -342,7 +342,7 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col">
-                                            <h3 class="text-muted">Quantity</h3>
+                                            <h3 class="text-muted">name</h3>
                                         </div>
                                         <div class="col">
                                             <h3 class="text-dark" id="eqty"></h3>
@@ -404,7 +404,7 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col">
-                                            <h3 class="text-muted">Quantity</h3>
+                                            <h3 class="text-muted">name</h3>
                                         </div>
                                         <div class="col">
                                             <h3 class="text-dark" id="vqty"></h3>

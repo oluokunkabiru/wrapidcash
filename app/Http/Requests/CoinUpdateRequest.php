@@ -26,7 +26,7 @@ class CoinUpdateRequest extends FormRequest
         return [
             //
             'avatar' => 'sometimes|nullable|image|mimes:png,jpg',
-            'quantity' => 'required|numeric|min:1',
+            'name' => 'required|string|min:1',
             'price' => 'required|numeric'
         ];
     }

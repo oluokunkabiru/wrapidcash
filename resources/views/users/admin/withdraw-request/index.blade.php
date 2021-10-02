@@ -20,7 +20,7 @@
                             <th>S/N</th>
                             <th>Users</th>
                             <th>Phone</th>
-                            <th>Plan</th>
+                            <th>Type</th>
                             <th>Amount request</th>
                             <th>Date</th>
                             <th>Status</th>
@@ -30,7 +30,8 @@
                           $sn =0;
                       @endphp
                       <tbody>
-                          @for ($i = 0; $i < 20; $i++)
+                            @forelse ($withdraws as $with)
+
 
                           <tr>
                               <td>{{ ++$sn }}</td>
@@ -48,7 +49,9 @@
                               </td>
                           </tr>
 
-                          @endfor
+                          @empty
+                          <h3 class="text-danger font-weight-bold text-center text-captalise">No current pending withdraw</h3>
+                          @endforelse
                       </tbody>
                     </table>
                   </div>

@@ -51,6 +51,7 @@ Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
     Route::get('/request-withdraw/{id}/{name}/paynebt', 'investor\BankController@withdrawMyMoney')->name('request-my-money');
     Route::post('/get-account-details', 'investor\BankController@validateAccountNumber')->name('get-account-details');
     Route::resource('coin', 'investor\CoinController');
+    Route::post('/get-coin-prices', 'investor\CoinController@coinPrice')->name('quantity-pricing');
     Route::resource('investment', 'InvestmentController');
     Route::resource('investor', 'investor\InvestorController');
     Route::get('coin-detal/{id}/order-now', 'investor\CoinController@coinDetail')->name('order-coin');

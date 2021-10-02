@@ -42,7 +42,7 @@ class CoinController extends Controller
     {
         //
         $coin = new Coin();
-        $coin->quantity = $request->quantity;
+        $coin->name = $request->name;
         $coin->price = $request->price;
         $coin->addMediaFromRequest('avatar')->toMediaCollection('coin-avatar');
         $coin->save();
@@ -101,7 +101,7 @@ class CoinController extends Controller
         //
         $coin = Coin::where('id', $id)->first();
         $coin->price = $request->price;
-        $coin->quantity = $request->quantity;
+        $coin->name = $request->name;
         if($request->file("avatar")){
             $coin->delete($id);
             $coin->clearMediaCollection();

@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Withdraw;
 use Illuminate\Http\Request;
 
@@ -16,8 +15,6 @@ class WithdrawController extends Controller
     public function index()
     {
         //
-        $withdraws = Withdraw::with(['user', 'investor', 'investment'])->where(['status' => 'pending', 'status' => 'failed'])->get();
-        return view('users.admin.withdraw-request.index', compact(['withdraws']));
     }
 
     /**
@@ -44,10 +41,10 @@ class WithdrawController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Withdraw  $withdraw
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Withdraw $withdraw)
     {
         //
     }
@@ -55,10 +52,10 @@ class WithdrawController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Withdraw  $withdraw
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Withdraw $withdraw)
     {
         //
     }
@@ -67,10 +64,10 @@ class WithdrawController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Withdraw  $withdraw
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Withdraw $withdraw)
     {
         //
     }
@@ -78,10 +75,10 @@ class WithdrawController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Withdraw  $withdraw
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Withdraw $withdraw)
     {
         //
     }

@@ -57,16 +57,17 @@ class InvestmentController extends Controller
         $investor = Investor::where('user_id', Auth::user()->id)->first();
         $invest->investor_id = $investor->id;
         $invest->payment = "transfer";
+        $quantity= $request->quantity;;
         $invest->invest_amount = $coin->price;
-        $invest->expected_amount = $coin->price+($coin->price*0.033333*30);
-
+        $invest->expected_amount = $coin->price+($coin->price*appSettings()->investment_percentage*appSettings()->investment_duration);
+        $invest->quantity =$quantity;
         if($ref->investor_id){
             $previousinv = Investment::where('investor_id', $investor->id)->first();
             if(!$previousinv){
                 $refbonus = Investor::with(['user'])->where('id', $ref->investor_id)->first();
                 // return $ref;
                 $currentBal = $refbonus->referral_bonus;
-                $refbonu = $coin->price*0.05;
+                $refbonu =  $coin->price*$quantity*appSettings()->referral_percentage;
                 $currentBal += $refbonu;
                 $refbonus->referral_bonus = $currentBal;
                 $refbonus->update();
@@ -85,7 +86,7 @@ class InvestmentController extends Controller
         $transaction = new Transaction();
         $transaction->investment_id = $invest->id;
         $transaction->price = $coin->price;
-        $transaction->action = "Purchase ". $coin->quantity. ' wrap coin by transfer';
+        $transaction->action = "Purchase ". $quantity. ' wrap coin by transfer';
         $transaction->user_id = Auth::user()->id;
         $transaction->save();
         return redirect()->route('usersdashboard')->with('success', 'You have invested');

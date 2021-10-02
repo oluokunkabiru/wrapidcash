@@ -26,7 +26,7 @@ class WrapcoinRequest extends FormRequest
         return [
             //
             'avatar' => 'required|image|mimes:png,jpg',
-            'quantity' => 'required|numeric|min:1',
+            'name' => 'required|string|min:1',
             'price' => 'required|numeric'
         ];
     }

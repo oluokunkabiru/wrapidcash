@@ -25,6 +25,13 @@
                     <strong>Success ! </strong> {{ session('success') }}
                 </div>
                 @endif
+
+                @if(session('delete'))
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>OOPS ! </strong> {{ session('delete') }}
+                </div>
+                @endif
                 <div class="card-body dashboard-tabs p-0">
                     <ul class="nav nav-tabs px-4" role="tablist">
                         <li class="nav-item">

@@ -48,10 +48,18 @@ class PaymentController extends Controller
 
 
 
-        // return $paymentDetails;
+        // return $paymentDetails['data']['amount'];
+
         $reference = $paymentDetails['data']['reference'];
         // return $ref;
-
+        $amount = $paymentDetails['data']['amount']/100;
+        $quantity =$paymentDetails['data']['metadata']['qty'];
+        // return $amount;
+        $already = Investment::where('ref', $reference)->first();
+        // return $quantity*appSettings()->investment_percentage;
+        if($already){
+            return redirect()->route('usersdashboard')->with('delete', 'You already invest with this reference number : '. $reference);
+        }else{
         $coinid =  $paymentDetails['data']['metadata']['coinid'];
         $invest = new Investment();
         $invest->coin_id = $coinid;
@@ -62,11 +70,12 @@ class PaymentController extends Controller
         $invest->investor_id = $investor->id;
         $invest->payment = "card";
         $invest->status = "active";
+        $invest->quantity = $quantity;
         $invest->ref = $reference;
         $invest->invest_date = date('Y-m-d');
-        $invest->invest_amount = $coin->price;
+        $invest->invest_amount = $coin->price*$quantity;
         $invest->expected_amount = $coin->price+($coin->price*appSettings()->investment_percentage*appSettings()->investment_duration);
-        $invest->revenue = $coin->price*appSettings()->investment_percentage;
+        $invest->revenue = $quantity*appSettings()->investment_percentage;
 
         $invest->end_date = date("Y-m-d" ,strtotime("+".appSettings()->investment_duration." day"));
         if($ref->investor_id){
@@ -75,7 +84,7 @@ class PaymentController extends Controller
                 $refbonus = Investor::with(['user'])->where('id', $ref->investor_id)->first();
                 // return $ref;
                 $currentBal = $refbonus->referral_bonus;
-                $refbonu = $coin->price*appSettings()->referral_percentage;
+                $refbonu = $coin->price*$quantity*appSettings()->referral_percentage;
                 $currentBal += $refbonu;
                 $refbonus->referral_bonus = $currentBal;
                 $refbonus->update();
@@ -104,11 +113,8 @@ class PaymentController extends Controller
         $transaction->user_id = Auth::user()->id;
         $transaction->save();
         return redirect()->route('usersdashboard')->with('success', 'You have invested');
+    }
 
-        // return $offender;
-
-
-        // return $paymentDetails;
 
 
         // Now you have the payment details,
