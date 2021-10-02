@@ -33,12 +33,15 @@ class InvestorController extends Controller
 
 
         // return $investor;
+             // return $invs;
+        $coins = Coin::where('status', 'active')->paginate(5);
         $investor = Investor::with(['user'])->where('user_id', Auth::user()->id)->first();
         // return $investor;
+        // $allcointype = Coin::where('status', 'active')->pluck('id')->toArray();
+        // return $allcointype;
         $invs = Investment::with(['investor', 'coin'])->where('investor_id', $investor->id)->get();
         $activeinvestment = Investment::with(['investor', 'coin'])->where(['investor_id'=> $investor->id, ])->get();
-        // return $invs;
-        $coins = Coin::where('status', 'active')->paginate(5);
+
         $transactions = Transaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->with(['user', 'investment'])->get();
 
         return view('users.investor.index', compact(['investor', 'invs', 'coins', 'transactions']));

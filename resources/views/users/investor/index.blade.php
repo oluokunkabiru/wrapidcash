@@ -139,9 +139,20 @@
                                 <div class="col-md-5 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
-                                            <p class="card-title">Investment balance</p>
-                                            <h1><span class=" mdi mdi-currency-ngn "></span>
-                                                {{ number_format($investor->balance, 2, '.', ',') }}</h1>
+                                            <p class="card-title">Wallet balance</p>
+
+                                                @forelse ($invs as $inv)
+                                                <div class="row">
+                                                 <span class="col"> {{ strtoupper($inv->coin->name) }}</span>
+                                                    <b class="col"> <span class=" mdi mdi-coin "></span> {{ $inv->coin->quantity+$inv->revenue }}</b>
+                                                    <span  class="col"><span class=" mdi mdi-currency-ngn "></span>{{ number_format($inv->coin->price*($inv->quantity+$inv->revenue), 2, '.', ',') }}</span>
+                                                <hr>
+                                            </div>
+                                                @empty
+                                                {{ number_format($investor->balance, 2, '.', ',') }}
+
+
+                                                @endforelse
                                             <hr>
                                             <p class="card-title">Referral balance</p>
                                             <h1><span class=" mdi mdi-currency-ngn "></span>
@@ -195,7 +206,7 @@
 
                                     <div
                                         class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                        <i class="mdi mdi-currency-ngn mr-3 icon-lg text-danger"></i>
+                                        <i class=" mdi mdi-coin  mr-3 icon-lg text-danger"></i>
                                         <div class="d-flex flex-column justify-content-around">
                                             <small class="mb-1 text-muted">Revenue</small>
                                             <h5 class="mr-2 mb-0">

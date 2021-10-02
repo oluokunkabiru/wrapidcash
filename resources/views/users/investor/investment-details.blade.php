@@ -104,8 +104,9 @@ ul#example li p {
                                 <img src="{{$inv->coin->getMedia('coin-avatar')->first()->getFullUrl() }}" class="card-img" alt="">
                             </div>
                             <div class="col">
-                                <h6>{{ $inv->coin->quantity }} Rash coin</h6>
-                                <h4> <span class=" mdi mdi-currency-ngn "></span> {{ number_format($inv->coin->price, 2, '.', ',') }} </h4>
+                                <h6>{{ $inv->quantity }} {{ $inv->coin->name }}</h6>
+                                <h4>Balance coin : <b>{{ $inv->quantity+$inv->revenue }}</b></h4>
+                                <h4> <span class=" mdi mdi-currency-ngn "></span> {{ number_format($inv->coin->price*($inv->quantity+$inv->revenue), 2, '.', ',') }} </h4>
                             </div>
                         </div>
                     </div>
@@ -158,7 +159,7 @@ ul#example li p {
 
                     <div class="row">
                         <h6 class="text-muted col">Balance earn : </h6>
-                        <h6 class="text-dark col font-weight-bold"><span class=" mdi mdi-currency-ngn "></span> {{ number_format($inv->revenue, 2, '.', ',') }}</h6>
+                        <h6 class="text-dark col font-weight-bold"><span class="  mdi mdi-coin "></span> {{ number_format($inv->revenue, 2, '.', ',') }}</h6>
                     </div>
                     @if (!$inv->end_date)
                     <a href="" class="btn btn-danger btn-rounded m-2 disabled font-weight-bold">Pending</a>

@@ -45,7 +45,7 @@
                                   <td><span class=" mdi mdi-currency-ngn "></span> {{ number_format($inv->expected_amount , 2, '.', ',') }}</td>
                                   <td>
                                       @if ($inv->revenue)
-                                      <span class=" mdi mdi-currency-ngn "></span> {{ number_format($inv->revenue , 2, '.', ',') }}                                      @else
+                                      <span class=" mdi mdi-coin "></span> {{ number_format($inv->revenue , 2, '.', ',') }}                                      @else
                                         <span class="text-danger">Investment not approved</span>
                                       @endif
 
@@ -64,7 +64,8 @@
                                       <span class="text-danger">Investment not approved</span>
                                     @endif</td>
                                   <td>
-                                      @if (date('now') >= $inv->end_date)
+                                      @if (date('now') == NULL)
+                                      @elseif (date('now') >= $inv->end_date)
                                       <span class="badge badge-pill badge-success">Approved</span>
                                       @else
                                       <span class="badge badge-pill badge-danger">Pending</span>

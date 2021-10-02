@@ -101,6 +101,7 @@
                         @php
                             $metadata = [
                                 'coinid' => $coin->id,
+                                'qty' => 1,
                                 'custom_fields' => [
                                     [
                                         'display_name' => 'Investor name',
