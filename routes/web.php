@@ -45,10 +45,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
     Route::get('dashboard', 'investor\InvestorController@index')->name('usersdashboard');
     Route::resource('bank', 'investor\BankController');
+    Route::resource('withdrawer-request', 'investor\WithdrawerRequest');
     Route::get('/account-setting', 'investor\BankController@accountSetting')->name('account_setting');
     Route::get('/transaction-history', 'investor\BankController@transactionHistory')->name('transaction_history');
     Route::get('/withdraw-request', 'investor\BankController@withdrawRequest')->name('withdraw-request');
-    Route::get('/request-withdraw/{id}/{name}/paynebt', 'investor\BankController@withdrawMyMoney')->name('request-my-money');
+    Route::get('/referral-withdraw-request', 'investor\BankController@refwithdrawRequest')->name('referral-withdraw-request');
+    Route::get('/all-withdraw-request', 'investor\WithdrawerRequest@index')->name('all-withdraw-request');
+    Route::post('/referral-withdraw-request', 'investor\WithdrawerRequest@refWithdrawRequest')->name('referral-withdraw-request');
+    Route::get('/request-withdraw/{id}/{name}/payment', 'investor\BankController@withdrawMyMoney')->name('request-my-money');
     Route::post('/get-account-details', 'investor\BankController@validateAccountNumber')->name('get-account-details');
     Route::resource('coin', 'investor\CoinController');
     Route::post('/get-coin-prices', 'investor\CoinController@coinPrice')->name('quantity-pricing');

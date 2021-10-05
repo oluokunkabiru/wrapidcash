@@ -39,8 +39,8 @@ class InvestorController extends Controller
         // return $investor;
         // $allcointype = Coin::where('status', 'active')->pluck('id')->toArray();
         // return $allcointype;
-        $invs = Investment::with(['investor', 'coin'])->where('investor_id', $investor->id)->get();
-        $activeinvestment = Investment::with(['investor', 'coin'])->where(['investor_id'=> $investor->id, ])->get();
+        $invs = Investment::with(['investor', 'coin'])->where(['investor_id'=> $investor->id, 'status'=>'active'])->get();
+        $activeinvestment = Investment::with(['investor', 'coin'])->where(['investor_id'=> $investor->id])->get();
 
         $transactions = Transaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->with(['user', 'investment'])->get();
 

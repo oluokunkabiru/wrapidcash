@@ -126,7 +126,11 @@
                                                 </div>
                                               </div>
                                             @else
-                                            <h3 class="text-danger my-2 font-weight-bold">Update your bank details</h3>
+                                            <h3 class="text-danger my-2 font-weight-bold">Update your bank details  <a class="text-primary" href="{{ route('profile-setting') }}">
+                                                <i class="mdi mdi-settings text-primary"></i>
+                                                Settings
+                                              </a> here</h3>
+
                                             @endif
                                         </div>
                                         <div class="toast" data-autohide="true">
@@ -144,7 +148,7 @@
                                                 @forelse ($invs as $inv)
                                                 <div class="row">
                                                  <span class="col"> {{ strtoupper($inv->coin->name) }}</span>
-                                                    <b class="col"> <span class=" mdi mdi-coin "></span> {{ $inv->coin->quantity+$inv->revenue }}</b>
+                                                    <b class="col"> <span class=" mdi mdi-coin "></span> {{ $inv->quantity+$inv->revenue }}</b>
                                                     <span  class="col"><span class=" mdi mdi-currency-ngn "></span>{{ number_format($inv->coin->price*($inv->quantity+$inv->revenue), 2, '.', ',') }}</span>
                                                 <hr>
                                             </div>
@@ -158,7 +162,7 @@
                                             <h1><span class=" mdi mdi-currency-ngn "></span>
                                                 {{ number_format($investor->referral_bonus, 2, '.', ',') }}</h1>
                                                 @if ($investor->referral_bonus >= appSettings()->referral_max_withdraw )
-                                                <a href="" class="btn btn-success btn-rounded"> Withdraw your referral bonus</a>
+                                                <a href="{{ route('referral-withdraw-request') }}" class="btn btn-success btn-rounded"> Withdraw your referral bonus</a>
 
                                                 @endif
                                             <hr>
@@ -227,6 +231,7 @@
                                         </div>
                                     </a>
                                 </div>
+
                                 @empty
                                     <h3 class="text-center text-danger">No active investment at moment</h3>
 

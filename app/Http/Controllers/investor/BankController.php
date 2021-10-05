@@ -33,7 +33,7 @@ class BankController extends Controller
 
     }
 
-   
+
 
     public function transactionHistory(){
         return view('users.investor.transaction-history') ;
@@ -57,15 +57,21 @@ class BankController extends Controller
     public function withdrawRequest(){
         $investor = Investor::where('user_id', Auth::user()->id)->with(['user'])->first();
         $invs = Investment::with(['investor', 'coin'])->where('investor_id', $investor->id)->get();
-        return view('users.investor.withdraw-request', compact(['invs']));
+        return view('users.investor.withdraw.withdraw-request', compact(['invs']));
     }
 
+    public function refwithdrawRequest(){
+        $investor = Investor::where('user_id', Auth::user()->id)->with(['user'])->first();
+        // $invs = Investment::with(['investor', 'coin'])->where('investor_id', $investor->id)->get();
+        return view('users.investor.withdraw.refwithdraw-request', compact(['investor']));
+    }
 
     public function withdrawMyMoney($id){
         $investor = Investor::where('user_id', Auth::user()->id)->with(['user'])->first();
         $inv = Investment::with(['investor', 'coin'])->where('id', $id)->first();
-        return $inv;
-        return view('users.investor.withdraw-request', compact(['invs']));
+
+        // return $inv;
+        return view('users.investor.withdraw-request', compact(['inv']));
     }
 
     /**

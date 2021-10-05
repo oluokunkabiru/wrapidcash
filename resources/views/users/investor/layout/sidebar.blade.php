@@ -16,9 +16,9 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('withdraw-request') }}">
+        <a class="nav-link" href="{{ route('all-withdraw-request') }}">
           <i class=" mdi mdi-currency-ngn menu-icon"></i>
-          <span class="menu-title">Withdraw request</span>
+          <span class="menu-title">All withdraw request</span>
         </a>
       </li>
       <li class="nav-item">
