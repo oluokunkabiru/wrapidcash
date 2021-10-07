@@ -9,6 +9,8 @@ use App\Models\Configuration;
 use App\Models\Investor;
 use App\Models\investor\Investment;
 use App\Models\Transaction;
+use App\Models\User;
+use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,13 +27,16 @@ class AdminControler extends Controller
         $investor = Investor::with(['user'])->where('user_id', Auth::user()->id)->first();
         // return $investor;
         $invs = Investment::with(['investor', 'coin'])->get();
-        $activeinvestment = Investment::with(['investor', 'coin'])->get();
+        $ainvs = Investment::with(['investor', 'coin'])->get();
         $pinvs = Investment::with(['investor', 'coin'])->where('status', 'pending')->get();
         // return $invs;
-        $coins = Coin::where('status', 'active')->paginate(5);
+        $users = User::get();
+        $with = Withdraw::where('status', 'success')->get();
+        $withr = Withdraw::where('status', '!=', 'success')->get();
+        $coins = Coin::where('status', 'active')->get();
         $transactions = Transaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->with(['user', 'investment'])->get();
 
-        return view('users.admin.index', compact(['investor','pinvs', 'invs', 'coins', 'transactions']));
+        return view('users.admin.index', compact(['investor','pinvs','withr','ainvs','users','with', 'invs', 'coins', 'transactions']));
     }
 
     /**

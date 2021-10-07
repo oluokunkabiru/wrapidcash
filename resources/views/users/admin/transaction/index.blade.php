@@ -21,31 +21,28 @@
                             <th>Action</th>
                             <th>Price</th>
                             <th>Date</th>
-                            <th>Status</th>
                         </tr>
                       </thead>
                       @php
                           $sn =0;
                       @endphp
-                      <tbody>
-                          @for ($i = 0; $i < 20; $i++)
+                     <tbody>
+                        @forelse ($transactions as $transaction)
+                            <tr>
+                                <td>{{ ++$sn }}</td>
+                                <td>{{ $transaction->action }}</td>
+                                <td><span class=" mdi mdi-currency-ngn "></span>
+                                    {{ number_format($transaction->price, 2, '.', ',') }}
+                                </td>
+                                <td>{{ $transaction->created_at }}</td>
 
-                          <tr>
-                              <td>{{ ++$sn }}</td>
-                              <td>Plan {{ $i }}</td>
-                              <td><i class=" mdi mdi-currency-ngn "></i>{{ 10*$i }}</td>
-                              <td>{{ $i+1 }}/04/2021</td>
-                              <td>
-                                  @if ($i %2 ==0)
-                                  <span class="badge badge-pill badge-success">Approved</span>
-                                  @else
-                                  <span class="badge badge-pill badge-danger">Pending</span>
-                                  @endif
-                              </td>
-                          </tr>
+                            </tr>
 
-                          @endfor
-                      </tbody>
+                        @empty
+                            <h4 class="text-danger">No active transaction</h4>
+                        @endforelse
+
+                    </tbody>
                     </table>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-@extends('users.investor.layout.app')
+@extends('users.admin.layout.app')
 @section('title', 'Investment details')
 @section('style')
 <style>

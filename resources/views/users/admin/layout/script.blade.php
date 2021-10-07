@@ -20,6 +20,7 @@
   <script src="{{ asset('assets/js/data-table.js') }}"></script>
   <script src="{{ asset('assets/js/jquery.dataTables.js') }}"></script>
   <script src="{{ asset('assets/js/dataTables.bootstrap4.js') }}"></script>
+  <script src="{{ asset('assets/jquery.countdown/jquery.countdown.min.js') }}"></script>
 
   <script src="{{ asset('assets/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
   <script src="{{ asset('assets/vendors/datatables/datatables.min.js') }}"></script>

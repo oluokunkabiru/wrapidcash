@@ -26,4 +26,9 @@ class Investor extends Model
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
+
+    public function users($id){
+        $user = Investor::where('id', $id)->with(['user'])->first();
+        return $user->user;
+    }
 }

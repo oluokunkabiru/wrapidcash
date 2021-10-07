@@ -43,6 +43,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/enabled/{id}/wrap-coin', 'admin\CoinController@enable')->name('enabled-wrap-coin');
     Route::get('/disabled/{id}/users', 'admin\UsersController@disables')->name('disabled-user');
     Route::get('/enabled/{id}/users', 'admin\UsersController@enable')->name('enable-user');
+    Route::get('/active/investment', 'admin\InvestmentController@active')->name('active-investment');
+    Route::get('/pending/investment', 'admin\InvestmentController@pending')->name('pending-investment');
+    Route::get('/ended/investment', 'admin\InvestmentController@ended')->name('ended-investment');
+    Route::get('/withdrawer/processed/investment', 'admin\InvestmentController@withdrawed')->name('withdrawed-investment');
+
 });
 Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
     Route::get('dashboard', 'investor\InvestorController@index')->name('usersdashboard');

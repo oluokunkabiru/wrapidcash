@@ -100,23 +100,7 @@
                                             </div>
 
 
-                                            @if (Auth::user()->account_number)
-                                            <div class="jumbotron">
-                                                <div class="row">
-                                                    <h5 class="col-6">Bank name</h5>
-                                                    <h5 class="col-6 font-weight-bold">{{ Auth::user()->bank->name }}</h5>
-                                                    <hr>
-                                                    <h5 class="col-6">Bank account name</h5>
-                                                    <h5 class="col-6 font-weight-bold">{{ Auth::user()->account_name }}</h5>
-                                                    <hr>
-                                                    <h5 class="col-6">Bank account number</h5>
-                                                    <h5 class="col-6 font-weight-bold">{{ Auth::user()->account_number }}</h5>
 
-                                                </div>
-                                              </div>
-                                            @else
-                                            <h3 class="text-danger my-2 font-weight-bold">Update your bank details</h3>
-                                            @endif
                                         </div>
                                         <div class="toast" data-autohide="true">
                                             <div class="toast-body">
@@ -125,13 +109,87 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5 grid-margin stretch-card">
-                                    <div class="card">
-                                        <div class="card-body">
+                                <div class="col-md-5 grid-margin stretch-card jumbotron">
+                                    <div class="d-flex flex-wrap justify-content-xl-between">
+                                        <div
+                                            class="card d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                                            <i class=" mdi mdi-account-multiple  icon-lg mr-3 text-primary"></i>
+                                            <div class="card-body d-flex flex-column justify-content-around">
+                                                <small class="mb-1 text-muted">Total Users</small>
+                                                <h2 class="mb-0 d-inline-block">
+                                                    {{ count($users) }}
+                                                </h2>
 
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="card d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                                            <i class=" mdi mdi-currency-ngn  icon-lg mr-3 text-success"></i>
+                                            <div class="card-body d-flex flex-column justify-content-around">
+                                                <small class="mb-1 text-muted">Total payout</small>
+                                                <h2 class="mb-0 d-inline-block">
+                                                    {{ count($with) }}
+                                                </h2>
+
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="card d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                                            <i class=" mdi mdi-chart-line icon-lg mr-3 text-info"></i>
+                                            <div class="card-body d-flex flex-column justify-content-around">
+                                                <small class="mb-1 text-muted">Active investment</small>
+                                                <h2 class="mb-0 d-inline-block">
+                                                    {{ count($ainvs) }}
+                                                </h2>
+
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="card d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                                            <i class=" mdi mdi-cash-100  icon-lg mr-3 text-danger"></i>
+                                            <div class="card-body d-flex flex-column justify-content-around">
+                                                <small class="mb-1 text-muted">Withdraw request</small>
+                                                <h2 class="mb-0 d-inline-block">
+                                                    {{ count($withr) }}
+                                                </h2>
+
+                                            </div>
+                                        </div>
+
+                                        <div
+                                        class="card d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                                        <i class=" mdi mdi-comment-alert   icon-lg mr-3 text-warning"></i>
+                                        <div class="card-body d-flex flex-column justify-content-around">
+                                            <small class="mb-1 text-muted">Pending investment</small>
+                                            <h2 class="mb-0 d-inline-block">
+                                                {{ count($pinvs) }}
+                                            </h2>
 
                                         </div>
                                     </div>
+
+                                    <div
+                                        class="card d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                                        <i class="  mdi mdi-coin   icon-lg mr-3 text-muted"></i>
+                                        <div class="card-body d-flex flex-column justify-content-around">
+                                            <small class="mb-1 text-muted">Total coin plan</small>
+                                            <h2 class="mb-0 d-inline-block">
+                                                {{ count($coins) }}
+                                            </h2>
+
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+                                    </div>
+
                                 </div>
 
 

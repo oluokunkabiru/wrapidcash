@@ -8,6 +8,7 @@ use App\Models\Investor;
 use App\Models\investor\Investment;
 use App\Models\Referral;
 use App\Models\Transaction;
+use App\Models\Withdraw;
 use App\Notifications\InvestorNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,6 +56,8 @@ class InvestmentController extends Controller
     public function show($id)
     {
         //
+        $inv = Investment::with(['coin'])->where('id', $id)->first();
+        return view('users.admin.invs.investment-details', compact(['inv']));
     }
 
     /**
@@ -115,6 +118,26 @@ class InvestmentController extends Controller
 
     }
 
+
+    public function active(){
+        $invs = Investment::where('status', 'active')->with(['investor', 'coin'])->get();
+    //    return $invs->users(14);
+        return view('users.admin.invs.active', compact(['invs']));
+    }
+    public function pending(){
+        $invs = Investment::where('status', 'pending')->with(['investor', 'coin'])->get();
+        return view('users.admin.invs.pending', compact(['invs']));
+    }
+    public function ended(){
+        $invs = Investment::whereDate('end_date','<=', date('Y-m-d'))->where('status', '!=', 'withdraw')->with(['investor', 'coin'])->get();
+        // return $invs;
+        return view('users.admin.invs.ended', compact(['invs']));
+    }
+    public function withdrawed(){
+        $invs = Withdraw::where('status', 'success')->with(['investor', 'investment', 'user'])->get();
+        // return $invs;
+        return view('users.admin.invs.withdrawed', compact(['invs']));
+    }
     /**
      * Update the specified resource in storage.
      *

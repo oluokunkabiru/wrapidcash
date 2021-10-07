@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -15,7 +17,9 @@ class TransactionController extends Controller
     public function index()
     {
         //
-        return view('users.admin.transaction.index');
+        $transactions = Transaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->with(['user', 'investment'])->get();
+
+        return view('users.admin.transaction.index', compact(['transactions']));
     }
 
     /**
