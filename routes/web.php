@@ -33,6 +33,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('withdraw-request', 'admin\WithdrawController');
     Route::resource('wrap-coin', 'admin\CoinController');
     Route::resource('role', 'admin\RoleController');
+    Route::get('/withdraw-request/{id}/processing/{name}', 'admin\WithdrawController@processWithdraw')->name('process-withdraw');
+
     Route::resource('permission', 'admin\PermissionController');
     Route::resource('site-configuration', 'admin\AdminControler');
     Route::post('remove-permission', 'admin\PermissionController@removepermission')->name('remove-permission');

@@ -24,6 +24,7 @@
                             <th>Amount request</th>
                             <th>Date</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                       </thead>
                       @php
@@ -35,22 +36,28 @@
 
                           <tr>
                               <td>{{ ++$sn }}</td>
-                              <td>users{{ $i }}</td>
-                              <td>Phone {{ $i }}</td>
-                              <td>Plan {{ $i }}</td>
-                              <td> <i class=" mdi mdi-currency-ngn "></i> {{ 10*$i }}</td>
-                              <td>{{ $i+1 }}/04/2021</td>
+                              <td>{{ ucwords($with->user->name) }}</td>
+                              <td> {{ ucwords($with->user->phone) }}</td>
+                              <td>{{ ucwords($with->type) }}</td>
+                              <td> <i class=" mdi mdi-currency-ngn "></i> {{ number_format($with->amount, 2, '.', ',') }}</td>
+                              <td>{{ date('d, M Y:h:s:ia', strtotime($with->created_at)) }}</td>
                               <td>
-                                  @if ($i %2 ==0)
-                                  <span class="badge badge-pill badge-success">Process payment</span>
+                                  @if ($with->status =="success")
+                                  <span class="badge badge-pill badge-success">Processed payment</span>
                                   @else
-                                  <span class="badge badge-pill badge-danger">Pending</span>
+                                  <span class="badge badge-pill badge-danger">{{ ucwords($with->status) }}</span>
                                   @endif
+                              </td>
+                              <td>
+                                @if ($with->status !="success")
+                                <a href="{{ route('process-withdraw', [$with->id, str_replace(" ", "-", $with->user->name)]) }}" class="btn btn-rounded btn-warning text-white font-weight-bold">Continue processing</a>
+                                @endif
+
                               </td>
                           </tr>
 
                           @empty
-                          <h3 class="text-danger font-weight-bold text-center text-captalise">No current pending withdraw</h3>
+                          <h3 class="text-danger font-weight-bold text-center text-captalise">No current pending withdraw request</h3>
                           @endforelse
                       </tbody>
                     </table>

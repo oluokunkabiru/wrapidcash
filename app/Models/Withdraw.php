@@ -12,7 +12,7 @@ class Withdraw extends Model
         return $this->belongsTo('App\Models\User');
     }
     public function investor(){
-        return $this->belongsTo('App\Models\Investor\Investor');
+        return $this->belongsTo('App\Models\Investor');
     }
 
     public function investment(){
