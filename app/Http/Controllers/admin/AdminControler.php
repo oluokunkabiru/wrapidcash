@@ -26,11 +26,12 @@ class AdminControler extends Controller
         // return $investor;
         $invs = Investment::with(['investor', 'coin'])->get();
         $activeinvestment = Investment::with(['investor', 'coin'])->get();
+        $pinvs = Investment::with(['investor', 'coin'])->where('status', 'pending')->get();
         // return $invs;
         $coins = Coin::where('status', 'active')->paginate(5);
         $transactions = Transaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->with(['user', 'investment'])->get();
 
-        return view('users.admin.index', compact(['investor', 'invs', 'coins', 'transactions']));
+        return view('users.admin.index', compact(['investor','pinvs', 'invs', 'coins', 'transactions']));
     }
 
     /**

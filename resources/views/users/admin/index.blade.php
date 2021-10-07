@@ -33,7 +33,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="sales-ta" data-toggle="tab" href="#sales" role="tab"
-                                aria-controls="sales" aria-selected="false">Active investment</a>
+                                aria-controls="sales" aria-selected="false">Pending investment</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="purchases-ta" data-toggle="tab" href="#purchase" role="tab"
@@ -128,7 +128,7 @@
                                 <div class="col-md-5 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
-                                           
+
 
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@
 
 
                     <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">
-                            @forelse ($invs as $inv)
+                            @forelse ($pinvs as $inv)
 
 
                                 <div class="d-flex flex-wrap justify-content-xl-between">
@@ -152,50 +152,57 @@
                                         class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                                         <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
                                         <div class="d-flex flex-column justify-content-around">
-                                            <small class="mb-1 text-muted">Investment start</small>
+                                            <small class="mb-1 text-muted">Payment date</small>
                                             <h5 class="mb-0 d-inline-block">
-                                                {!! $inv->end_date ? date('d, M Y', strtotime($inv->invest_date)) : '<span class="text-danger font-weight-bold">Pending</span>' !!}
+
+                                                {!! date('d, M Y', strtotime($inv->created_at)) !!}
                                             </h5>
 
                                         </div>
                                     </div>
                                     <div
                                         class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                        <i class="mdi mdi-calendar-heart icon-lg mr-3 text-success"></i>
+                                        <i class="mdi mdi-cart icon-lg mr-3 text-success"></i>
                                         <div class="d-flex flex-column justify-content-around">
-                                            <small class="mb-1 text-muted">Investment end</small>
-                                            <h5 class="mb-0 d-inline-block">
-                                                {!! $inv->end_date ? date('d, M Y', strtotime($inv->end_date)) : '<span class="text-danger font-weight-bold">Pending</span>' !!}
+                                            <small class="mb-1 text-muted">Coin</small>
+                                            <h5 class="my-0 d-inline-block">
+                                              Plan :  <b>{!! $inv->coin->name !!}</b>
+
                                             </h5>
+                                            <hr>
+                                            <h5 class="my-0">
+                                               Quantity : <b>{{ $inv->quantity }}</b>
+                                            </h5>
+                                            <hr>
+                                            <h5>Amount : </h5> <b><span class="mdi mdi-currency-ngn" >{{ number_format($inv->invest_amount, 2, '.', ',') }}</span></b>
+
 
                                         </div>
                                     </div>
 
                                     <div
                                         class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                        <i class="mdi mdi-currency-ngn mr-3 icon-lg text-danger"></i>
+                                        <i class="mdi mdi-receipt mr-3 icon-lg text-danger"></i>
                                         <div class="d-flex flex-column justify-content-around">
-                                            <small class="mb-1 text-muted">Revenue</small>
-                                            <h5 class="mr-2 mb-0">
-                                                {{ number_format($inv->revenue, 2, '.', ',') }}</h5>
+                                            <small class="mb-1 text-muted">Payment Evidence</small>
+                                            <a href="{{ $inv->getMedia('evidence')->first()->getFullUrl() }}" target="_blank"><img src="{{ $inv->getMedia('evidence')->first()->getFullUrl() }}" style="width: 100px" alt=""></a>
+
                                         </div>
                                     </div>
 
-                                    <a href="{{ route('investment.show', $inv->id) }}">
-
-
+                                    <a href="{{ route('investment-progress.edit', $inv->id) }}">
                                         <div
                                             class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                                             <i class=" mdi mdi-repeat  mr-3 icon-lg text-warning"></i>
                                             <div class="d-flex flex-column justify-content-around">
-                                                <small class="mb-1 text-muted">Investment progress</small>
-                                                <h5 class="mr-2 mb-0 investmentprogress"> View investment detail </h5>
+                                                <small class="mb-1 text-muted">Action</small>
+                                                <h5 class="mr-2 mb-0 investmentprogress">Proceed to confirm </h5>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
                                 @empty
-                                    <h3 class="text-center text-danger">No active investment at moment</h3>
+                                    <h3 class="text-center text-danger">No Pending order</h3>
 
                             @endforelse
                         {{-- </div> --}}
