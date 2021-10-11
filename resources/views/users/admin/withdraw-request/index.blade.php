@@ -7,8 +7,34 @@
 
 @section('content')
 <div class="container">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Success! </strong> {{ session('success') }}
+        </div>
+    @endif
+    @if (session('failed'))
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Failed! </strong> {{ session('failed') }}
+        </div>
+    @endif
+
+    @if (session('pending'))
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Pending! </strong> {{ session('pending') }}
+        </div>
+    @endif
+    @if (session('processing'))
+        <div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Processing! </strong> {{ session('processing') }}
+        </div>
+    @endif
     <div class="row">
         {{--  <div class="col-md-2"></div>  --}}
+
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">

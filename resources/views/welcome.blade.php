@@ -1,11 +1,161 @@
 @extends('layouts.app')
 @section('title', 'Home')
+@section('style')
+<style>
+    .carouselcontent{
+        /* padding: 80px 20px 200px 20px; */
+        margin: 80px 20px 200px 20px ;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7));
+        /* border-radius: 10%; */
+    }
+</style>
+
+@endsection
 @section('content')
 <section>
     <div class="wow slideInDown" data-wow-duration='2s' data-wow-delay='0.5s'>
-        <div class="site-section bg-image" style="background-image:url({{ asset('front-asset/images/wallpaper.jpg') }});max-width: 100%; height: 100%;
+        <div class="site-section bg-image" style="background-image:url({{ asset('front-asset/images/wallpaper.jpg') }});max-width:cover; height: 100%;
         background-repeat: no-repeat; " >
-        <img src="{{ asset('front-asset/images/wallpaper.jpg') }}" alt="" style="visibility: hidden; max-width: 100%; height: auto;">
+        <div class="carouselcontent text-white">
+                <h2 class="font-weight-bold text-warning text-center display-4">FAQ</h2>
+            <div id="demo" class="carousel slide" data-ride="carousel" >
+
+                <!-- Indicators -->
+                {{-- <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+
+                </ul> --}}
+
+                <div class="carousel-inner">
+
+                    <div class="carousel-item active">
+                            <div class="container" >
+                                <h4 class="bg-primary text-light p-3 rounded text-uppercase" style="max-width: max-content">what is Rapid cash ?</h4>
+                                <h5>
+                                    Rapid Cash is an organization with the aim of building individuals
+                                    financial capacity over time with our self generating digital Assets,
+                                    which generates liquidity for members who holds it for 30 days time
+                                    period.
+                                </h5>
+                                <h5>
+                                  With the raise of many struggles on making hands meet, we have put
+                                  together constructive efforts and work for every member of Rapid
+                                  Cash so as to save them, their time, energy and money With WRAP
+                                  COIN.
+                                </h5>
+                            </div>
+                    </div>
+
+                    <div class="carousel-item">
+                      <div class="container" >
+                          <h4 class="bg-primary text-light p-3 rounded text-uppercase" style="max-width: max-content">what is wrap coin?</h4>
+                          <h5>
+                            Wrap coin is an Investment coin owned by Rapid Cash, it is not a
+                            market based or user based coin and as such its price is determined
+                            by the organization.
+                          </h5>
+                          <h5>
+                            Wrap coin has the potency to give you 100% returns for purchasing it
+                            and holding it within 30 days.
+                            Wrap coin is a digital asset and can be converted into fiat.
+                          </h5>
+                      </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="container" >
+                    <h2 class="bg-primary text-light p-3 rounded text-uppercase" style="max-width: max-content">Rapid Cash:- Breaking Financial Limits.</h2>
+                </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="container" >
+                    <h6 class="bg-primary text-light p-3 rounded text-uppercase" style="max-width: max-content">How do I earn with rapid cash/ how do I
+                      Earn with wrap coin ?</h6>
+                    <h5>
+                      Wrap coin is an auto liquidity generating coin ,because of the
+                      nature of this coin , all you need to do as an investor is to buy the
+                      coin and watch the coin grow
+                    </h5>
+                    <h5>
+                      Wrap coin has the potency to give you 100% returns for purchasing it
+                      and holding it within 30 days
+                    </h5>
+                </div>
+        </div>
+        <div class="carousel-item">
+          <div class="container" >
+              <h3 class="bg-primary text-light p-3 rounded text-uppercase" style="max-width: max-content">Can I partner with Rapid cash?</h3>
+              <h4>
+                Yes you can partner with rapid cash organization this option will be
+                available very soon
+              </h4>
+
+          </div>
+  </div>
+
+  <div class="carousel-item">
+    <div class="container" >
+        <h4 class="bg-primary text-light p-3 rounded text-uppercase" style="max-width: max-content">How do I invest?</h4>
+        <h5>
+          Wrap coin is an Investment coin owned by Rapid Cash, it is not a
+          market based or user based coin and as such its price is determined
+          by the organization.
+        </h5>
+        <h5>
+          Wrap coin has the potency to give you 100% returns for purchasing it
+          and holding it within 30 days.
+          Wrap coin is a digital asset and can be converted into fiat.
+        </h5>
+    </div>
+</div>
+<div class="carousel-item">
+  <div class="container" >
+      <h4 class="bg-primary text-light p-3 rounded text-uppercase" style="max-width: max-content">How and when do I withdraw?</h4>
+      <h5>
+        Wrap coin generate 100% in 30 days therefore withdrawal can only
+        be made after 30days of investment.
+      </h5>
+
+  </div>
+</div>
+
+<div class="carousel-item">
+  <div class="container" >
+      <h4 class="bg-primary text-light p-3 rounded text-uppercase" style="max-width: max-content">How long does it takes my withdrawal to be
+        processed?</h4>
+      <h5>
+        Kindly notice that your withdrawal will be processed under 24hrs
+        after you order to withdraw. and if you didn’t get your withdrawal
+        under 24hrs kindly contact our 27/7 customer care support team
+      </h5>
+
+  </div>
+</div>
+
+
+
+
+                </div>
+
+
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+
+            </div>
+
+        </div>
+
+        {{-- <img src="{{ asset('front-asset/images/wallpaper.jpg') }}" alt="" style="visibilit: hidden; max-width: 100%; height: auto;"> --}}
         </div>
   </div>
 </section>
@@ -38,7 +188,7 @@
 
     <!-- The Modal -->
 <div class="modal" id="myModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog-lg">
       <div class="modal-content">
 
         <!-- Modal Header -->

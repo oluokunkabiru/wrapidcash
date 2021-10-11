@@ -26,11 +26,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->group(function () {
     Route::get('/dashboard', 'admin\AdminControler@index')->name('admindashboard');
     Route::resource('users', 'admin\UsersController');
     Route::resource('transaction-history', 'admin\TransactionController');
     Route::resource('withdraw-request', 'admin\WithdrawController');
+    Route::get('/payment/method/{id}/transfer/{status}', 'admin\WithdrawController@withdrawStatus')->name('payment-transfer');
     Route::resource('wrap-coin', 'admin\CoinController');
     Route::resource('role', 'admin\RoleController');
     Route::get('/withdraw-request/{id}/processing/{name}', 'admin\WithdrawController@processWithdraw')->name('process-withdraw');
@@ -49,7 +50,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/withdrawer/processed/investment', 'admin\InvestmentController@withdrawed')->name('withdrawed-investment');
 
 });
-Route::middleware(['auth', 'users'])->prefix('investor')->group(function () {
+Route::middleware(['auth', 'users', 'verified'])->prefix('investor')->group(function () {
     Route::get('dashboard', 'investor\InvestorController@index')->name('usersdashboard');
     Route::resource('bank', 'investor\BankController');
     Route::resource('withdrawer-request', 'investor\WithdrawerRequest');

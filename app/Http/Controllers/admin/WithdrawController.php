@@ -5,7 +5,10 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\investor\Investment;
 use App\Models\Withdraw;
+use App\Notifications\InvestorNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class WithdrawController extends Controller
 {
@@ -83,7 +86,22 @@ class WithdrawController extends Controller
     {
         //
     }
+    public function withdrawStatus($id, $status){
+        $withdraw = Withdraw::with(['user', 'investor', 'investment'])->where('id', $id)->first();
+    //    return $withdraw;
+        $withdraw->status = strtolower($status);
+        $withdraw->update();
+        $bg ="bg-".$status;
+        $icon = "mdi mdi-cash-multiple";
+        $message ='Your withdraw request of ₦' . $withdraw->amount." was ". $status;
+        Notification::send($withdraw->user, new InvestorNotification($bg, $icon, $message));
+        $message ='Your payment request of ₦'. $withdraw->amount." was ". $status;
 
+        Notification::send(Auth::user(), new InvestorNotification($bg, $icon, $message));
+        
+        return redirect()->route('withdraw-request.index')->with(strtolower($status), 'The payment of ₦'.$withdraw->amount. ' was '. $status );
+     
+    }
     /**
      * Update the specified resource in storage.
      *
