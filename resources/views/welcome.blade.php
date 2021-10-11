@@ -16,7 +16,7 @@
     <div class="wow slideInDown" data-wow-duration='2s' data-wow-delay='0.5s'>
         <div class="site-section bg-image" style="background-image:url({{ asset('front-asset/images/wallpaper.jpg') }});max-width:cover; height: 100%;
         background-repeat: no-repeat; " >
-        <div class="carouselcontent text-white">
+        <div class="carouselcontent rounded text-white">
                 <h2 class="font-weight-bold text-warning text-center display-4">FAQ</h2>
             <div id="demo" class="carousel slide" data-ride="carousel" >
 
