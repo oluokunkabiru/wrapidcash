@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bank;
 use App\Models\Investor;
 use App\Models\investor\Investment;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -36,7 +37,9 @@ class BankController extends Controller
 
 
     public function transactionHistory(){
-        return view('users.investor.transaction-history') ;
+        $transactions = Transaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->with(['user', 'investment'])->get();
+
+        return view('users.investor.transaction-history', compact(['transactions'])) ;
     }
 
     public function validateAccountNumber(Request $request){
@@ -71,7 +74,7 @@ class BankController extends Controller
         $inv = Investment::with(['investor', 'coin'])->where('id', $id)->first();
 
         // return $inv;
-        return view('users.investor.withdraw-request', compact(['inv']));
+        return view('users.investor.withdraw.withdraw-request', compact(['inv']));
     }
 
     /**

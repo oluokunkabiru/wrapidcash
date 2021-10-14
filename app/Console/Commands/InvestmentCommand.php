@@ -40,17 +40,17 @@ class InvestmentCommand extends Command
     {
         $activeinv = Investment::with(['investor', 'coin'])->where('status', 'active')->get();
         foreach($activeinv as $inv){
-            $startTime = strtotime( $inv->invest_date );
+            $startTime = strtotime($inv->invest_date );
             $today =  time(); //date('Y-m-d');
-            $endTime = strtotime( $inv->end_date);
+            $endTime = strtotime($inv->end_date);
             $revenue = $inv->revenue;
-            // $coin->price * appSettings()->investment_charges;
+            // $coin->price * appSettings()->investment_charges;$inv->quantity *
             if($today < $endTime){
                 $invm = Investment::with(['investor', 'coin'])->find($inv->id);
                 $revenue = 0;
                 // 86400
-                for ( $i = $startTime; $i <= $today; $i = $i + 60*60 ) {
-                    $revenue += $inv->coin->price* appSettings()->investment_percentage;
+                for ( $i = $startTime; $i <= $today; $i = $i + 60 ) {
+                    $revenue += $inv->quantity * appSettings()->investment_percentage;
                     }
                 $invm->revenue = $revenue;
                 $invm->update();

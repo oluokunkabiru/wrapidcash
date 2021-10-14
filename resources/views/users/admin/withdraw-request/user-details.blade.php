@@ -33,7 +33,7 @@
 
                                 <div class="row">
                                     <h3 class="col ">Wrap Amount</h3>
-                                    <h3 class="col font-weight-bold"><span class=" mdi mdi-currency-ngn "></span>{{ number_format($inv->coin->price*($inv->quantity+$inv->revenue), 2, '.', ',') }}</h3>
+                                    <h3 class="col font-weight-bold"><span class=" mdi mdi-currency-ngn "></span>{{ number_format($withdraw->amount, 2, '.', ',') }}</h3>
                                 </div>
                                 <hr>
 
@@ -55,7 +55,7 @@
                                 {{--  <form action="{{ route('withdrawer-request.store') }}" method="post">  --}}
                                     {{--  @csrf  --}}
                                     {{--  <input type="hidden" name="invid" value="{{ $inv->id }}">  --}}
-                                    
+
                                     <a href="#paymentmethod" class="btn btn-lg btn-block mt-3 font-weight-bold btn-success" data-toggle="collapse" type="">Procceed to withdraw</a>
                                 {{--  </form>  --}}
                             </div>
@@ -79,7 +79,7 @@
                                <hr>
                                <div class="row">
                                 <h3 class="col ">Wrap Amount</h3>
-                                <h3 class="col font-weight-bold"><span class=" mdi mdi-currency-ngn "></span>{{ number_format($inv->coin->price*($inv->quantity+$inv->revenue), 2, '.', ',') }}</h3>
+                                <h3 class="col font-weight-bold"><span class=" mdi mdi-currency-ngn "></span>{{ number_format($withdraw->amount, 2, '.', ',') }}</h3>
                             </div>
                             <hr>
                                 <div class="row">
@@ -102,9 +102,9 @@
                                     <a href="{{ route('payment-transfer', [$withdraw->id, 'failed']) }}" class="btn btn-danger btn-rounded">Failed</a>
                                     <hr>
                                     <a href="{{ route('payment-transfer', [$withdraw->id, 'processing']) }}" class="btn btn-info btn-rounded">Processing</a>
-                                    <a href="{{ route('payment-transfer', [$withdraw->id, 'success']) }}" class="btn btn-success btn-rounded">Success</a>    
+                                    <a href="{{ route('payment-transfer', [$withdraw->id, 'success']) }}" class="btn btn-success btn-rounded">Success</a>
                                 </div>
-                               
+
                             </div>
                     </div>
                     </div>

@@ -27,10 +27,26 @@
                                     <h3 class="col font-weight-bold">{{ $inv->quantity+$inv->revenue }}</h3>
                                 </div>
                                 <hr>
-
+                                    @php
+                                    $totalInv =$inv->coin->price*($inv->quantity+$inv->revenue);
+                                    $charges = $totalInv*appSettings()->withdraw_charges;
+                                    $withdrawable = $totalInv-$charges;
+                                    @endphp
                                 <div class="row">
                                     <h3 class="col ">Wrap Amount</h3>
-                                    <h3 class="col font-weight-bold"><span class=" mdi mdi-currency-ngn "></span>{{ number_format($inv->coin->price*($inv->quantity+$inv->revenue), 2, '.', ',') }}</h3>
+                                    <h3 class="col font-weight-bold"><span class=" mdi mdi-currency-ngn "></span>{{ number_format($totalInv, 2, '.', ',') }}</h3>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <h3 class="col ">Withdraw Charges of <b>{{ appSettings()->withdraw_charges * 100 }}%</b></h3>
+                                    <h3 class="col font-weight-bold"><span class=" mdi mdi-currency-ngn "></span>{{ number_format($charges, 2, '.', ',') }}</h3>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <h3 class="col ">Withdrawable Amount </h3>
+                                    <h3 class="col font-weight-bold"><span class=" mdi mdi-currency-ngn "></span>{{ number_format($withdrawable, 2, '.', ',') }}</h3>
                                 </div>
                                 <hr>
                                 <div class="row">

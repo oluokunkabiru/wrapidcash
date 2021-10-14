@@ -32,7 +32,7 @@
                           </a>
                           <div class="dropdown-menu ">
                             @if (Route::has('login'))
-                            <a class="dropdown-item text-black" href="{{ route('login') }}">Login</a>
+                            <a class="dropdown-item" href="{{ route('login') }}">Login</a>
                             @endif
 
                             @if (Route::has('register'))
@@ -46,7 +46,7 @@
                                 {{ ucwords(Auth::user()->name) }}
                             </a>
                             <div class="dropdown-menu ">
-                              <a class="dropdown-item text-black" href="{{ route('home') }}">Dashboard</a>
+                              <a class="dropdown-item" href="{{ route('home') }}">Dashboard</a>
 
                               <a class="dropdown-item" href="{{ route('logout') }}"
                               onclick="event.preventDefault();
@@ -56,7 +56,8 @@
 
                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                @csrf
-                           </form>                            </div>
+                           </form>
+                        </div>
                           </li>
                           @endguest
 

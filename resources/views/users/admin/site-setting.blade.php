@@ -122,7 +122,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="firstname"><b>Referral max withdraw (<span class="mdi mdi-currency-ngn"></span>
+                            <label for="firstname"><b>Referral min withdraw (<span class="mdi mdi-currency-ngn"></span>
                                     )</b></label>
                             <input id="rwmax" type="number" class="form-control @error('rwmax') is-invalid @enderror"
                                 name="rwmax" value="{{ ucwords(appSettings()->referral_max_withdraw), old('rwmax') }}"

@@ -61,22 +61,22 @@ class InvestmentController extends Controller
         $invest->invest_amount = $coin->price;
         $invest->expected_amount = $coin->price+($coin->price*appSettings()->investment_percentage*appSettings()->investment_duration);
         $invest->quantity =$quantity;
-        if($ref->investor_id){
-            $previousinv = Investment::where('investor_id', $investor->id)->first();
-            if(!$previousinv){
-                $refbonus = Investor::with(['user'])->where('id', $ref->investor_id)->first();
-                // return $ref;
-                $currentBal = $refbonus->referral_bonus;
-                $refbonu =  $coin->price*$quantity*appSettings()->referral_percentage;
-                $currentBal += $refbonu;
-                $refbonus->referral_bonus = $currentBal;
-                $refbonus->update();
-                $bg ="bg-success";
-                $icon = "mdi mdi-cash-multiple";
-                $message ='You buy '. $coin->quantity." with cash";
-                Notification::send($refbonus->user, new InvestorNotification($bg, $icon, $message));
-            }
-        }
+        // if($ref->investor_id){
+        //     $previousinv = Investment::where('investor_id', $investor->id)->first();
+        //     if(!$previousinv){
+        //         $refbonus = Investor::with(['user'])->where('id', $ref->investor_id)->first();
+        //         // return $ref;
+        //         $currentBal = $refbonus->referral_bonus;
+        //         $refbonu =  $coin->price*$quantity*appSettings()->referral_percentage;
+        //         $currentBal += $refbonu;
+        //         $refbonus->referral_bonus = $currentBal;
+        //         $refbonus->update();
+        //         $bg ="bg-success";
+        //         $icon = "mdi mdi-cash-multiple";
+        //         $message ='You buy '. $coin->quantity." with cash";
+        //         Notification::send($refbonus->user, new InvestorNotification($bg, $icon, $message));
+        //     }
+        // }
 
         $invest->save();
         $bg ="bg-warning";

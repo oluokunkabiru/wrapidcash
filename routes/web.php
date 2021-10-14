@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +24,7 @@ Route::get('/' , 'PagesController@index')->name('welcome');
 Route::get('/register/{id}/referral', 'ReferralController@referralLink')->name('investor-referral');
 
 Auth::routes();
-
+Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->group(function () {

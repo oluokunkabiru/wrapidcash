@@ -48,6 +48,9 @@ class WithdrawerRequest extends Controller
         $id =  $request->invid;
         $inv = Investment::where('id', $id)->with(['investor', 'coin'])->first();
         $alrwith = Withdraw::where('investment_id', $id)->first();
+        $totalInv =$inv->coin->price*($inv->quantity+$inv->revenue);
+        $charges = $totalInv*appSettings()->withdraw_charges;
+        $withdrawable = $totalInv-$charges;
         if(!$alrwith){
         $withdraw = new Withdraw();
         $withdraw->user_id = $inv->investor->user_id;
@@ -55,7 +58,7 @@ class WithdrawerRequest extends Controller
         $withdraw->type = "coin";
         $withdraw->status = "pending";
         $withdraw->investor_id = $inv->investor->id;
-        $withdraw->amount = $inv->coin->price*($inv->quantity+$inv->revenue);
+        $withdraw->amount = $withdrawable;//$inv->coin->price*($inv->quantity+$inv->revenue);
         $withdraw->save();
         $inv->status = "withdraw";
         $inv->update();
