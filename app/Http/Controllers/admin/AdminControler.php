@@ -8,6 +8,7 @@ use App\Models\Coin;
 use App\Models\Configuration;
 use App\Models\Investor;
 use App\Models\investor\Investment;
+use App\Models\News;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Withdraw;
@@ -34,9 +35,10 @@ class AdminControler extends Controller
         $with = Withdraw::where('status', 'success')->get();
         $withr = Withdraw::where('status', '!=', 'success')->get();
         $coins = Coin::where('status', 'active')->get();
+        $news = News::get();
         $transactions = Transaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->with(['user', 'investment'])->get();
 
-        return view('users.admin.index', compact(['investor','pinvs','withr','ainvs','users','with', 'invs', 'coins', 'transactions']));
+        return view('users.admin.index', compact(['investor','pinvs','news','withr','ainvs','users','with', 'invs', 'coins', 'transactions']));
     }
 
     /**

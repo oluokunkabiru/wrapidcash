@@ -32,6 +32,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->group(function () {
     Route::get('/dashboard', 'admin\AdminControler@index')->name('admindashboard');
     Route::resource('users', 'admin\UsersController');
+    Route::resource('news-flash', 'NewsController');
+    Route::get('/news-flash-disabled/{id}' , 'NewsController@disables')->name('news-flash-disabled');
+    Route::get('/news-flash-enabled/{id}' , 'NewsController@enable')->name('news-flash-enabled');
     Route::resource('transaction-history', 'admin\TransactionController');
     Route::resource('withdraw-request', 'admin\WithdrawController');
     Route::get('/payment/method/{id}/transfer/{status}', 'admin\WithdrawController@withdrawStatus')->name('payment-transfer');

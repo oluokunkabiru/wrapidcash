@@ -35,7 +35,6 @@ class UsersController extends Controller
         $user->update();
         return redirect()->back()->with('success', $user->name .' enabled successfully');
 
-
      }
     /**
      * Show the form for creating a new resource.
