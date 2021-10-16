@@ -139,7 +139,7 @@
                         <h3 class="text-center font-weight-bold my-2 col-12">About</h3>
                         <div class="col-md-6">
                             <label for=""><b>Current logo</b></label><br>
-                            <img src="{{ asset('front/images/admin.jpg') }}" style="width: 100px" class="card-img" alt="">
+                            <img src="{{ appSettings()->getMedia('logo')->first()->getFullUrl() }}" style="width: 100px" class="card-img" alt="">
                         </div>
                         <div class="form-group col-md-6">
                             <label for=""><b>Logo</b></label>

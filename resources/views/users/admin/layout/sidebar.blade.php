@@ -50,9 +50,10 @@
           <span class="menu-title">Staff management</span>
           <i class="menu-arrow"></i>
         </a>
+        
         <div class="collapse" id="staffs">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{{ route('role.index') }}"> Add new staff </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('users.create') }}"> Add new staff </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('role.index') }}"> Manage role </a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('permission.index') }}">Manage permission </a></li>
         </ul>

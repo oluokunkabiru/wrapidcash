@@ -11,7 +11,8 @@
                     <div class="dudu">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-                            <h1>{{ isset($ref) ? ucwords($ref->user->name) . ' invite you to register' : 'Register' }}</h1>
+                            <h1>{{ isset($ref) ? ucwords($ref->user->name) . ' invite you to register' : 'Register' }}
+                            </h1>
 
                             <label for="firstname"><b>Full name</b></label>
                             <input type="hidden" name="ref" value="{{ isset($ref) ? ucwords($ref->id) : '' }}">

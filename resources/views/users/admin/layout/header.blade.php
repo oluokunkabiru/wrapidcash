@@ -114,7 +114,7 @@
               <span class="nav-profile-name">{{ ucwords(Auth::user()->name) }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item" href="{{ route('profile-setting') }}">
+              <a class="dropdown-item" href="{{ route('staff-profile') }}">
                 <i class="mdi mdi-settings text-primary"></i>
                 Settings
               </a>

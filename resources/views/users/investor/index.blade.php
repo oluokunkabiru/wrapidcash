@@ -1,17 +1,34 @@
 @extends('users.investor.layout.app')
 @section('title', 'Dashboard')
-
+@section('style')
+<style>
+    .newsflash{
+        border-top: solid black 2px;
+        border-bottom: solid black 2px;
+        /* border-right: solid black 2px; */
+    }
+</style>
+@endsection
 @section('content')
 
     <div class="row">
         <div class="col-md-12 grid-margin">
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
+
                     <div class="mr-md-3 mr-xl-5">
-                        <marquee behavior="" direction="">
-                            <h3 class="text-danger">News letters</h3>
-                        </marquee>
+                        <div class="row">
+                            <div class="col-2">
+                                <span class="btn btn-info btn-sm font-weight-bold btn-rounded btn-block">News flash</span>
+                            </div>
+                            <div class="col-10 newsflash">
+                             <marquee behavior="alternate" direction="">
+                                <h4 class="text-danger">News letters</h4>
+                            </marquee>
+                            </div>
+                        </div>
                         <h2>Welcome back,{{ ucwords(Auth::user()->name) }}</h2>
+
                     </div>
 
                 </div>

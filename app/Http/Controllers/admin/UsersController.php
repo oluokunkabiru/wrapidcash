@@ -3,8 +3,15 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staffsrequest;
+use App\Http\Requests\StaffUpdateProfile;
 use App\Models\User;
+use App\Notifications\InvestorNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -44,6 +51,8 @@ class UsersController extends Controller
     public function create()
     {
         //
+        $roles = Role::orderBy('id', 'desc')->get();
+        return view('users.admin.user.add-user', compact(['roles']));
     }
 
     /**
@@ -52,9 +61,23 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Staffsrequest $request)
     {
         //
+        // return $request;
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->role = "admin";
+        $user->password = Hash::make($request->phone);
+        $user->assignRole($request->role);
+        $user->save();
+        $bg ="bg-success";
+        $icon = " mdi mdi-account-star ";
+        $message ='New staff with '. $request->role .' role added successfully';
+        Notification::send(Auth::user(), new InvestorNotification($bg, $icon, $message));
+        return redirect()->route('users.index')->with('success', 'New staff added successfully');
     }
 
     public function readNotification($id){
@@ -75,6 +98,9 @@ class UsersController extends Controller
         }
         return redirect()->back();
 
+    }
+    public function profile(){
+        return view('users.admin.user.update');
     }
     /**
      * Display the specified resource.
@@ -105,9 +131,40 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StaffUpdateProfile $request, $id)
     {
         //
+        $investor = User::where('id', $id)->first();
+        $investor->name = $request->name;
+        $investor->phone = $request->phone;
+        $investor->email = $request->email;
+        if(!empty($request->password)){
+            if(empty($request->oldpassword)){
+                return redirect()->back()->with('fail', 'Old password is required to change this password');
+            }elseif(Hash::check($request->oldpassword, $investor->password)){
+                $investor->password = Hash::make($request->password);
+            }else{
+                return redirect()->back()->with('fail', 'Old password not matched');
+            }
+        }
+        if($request->avatarset=="notset"){
+            $investor->addMediaFromRequest('avatar')->toMediaCollection('avatar');
+        }
+        if($request->avatarset=="set"){
+            if($request->file("avatar")){
+                $investor->delete($id);
+                $investor->clearMediaCollection();
+                $investor->addMediaFromRequest('avatar')->toMediaCollection("avatar");
+            }
+        }
+        $investor->save();
+        $bg ="bg-success";
+        $icon = "mdi mdi-account-check";
+        $message ='You update your profile ';
+        Notification::send(Auth::user(), new InvestorNotification($bg, $icon, $message));
+
+        return redirect()->route('admindashboard')->with('success', 'Provile details updated successfully');
+
     }
 
     /**

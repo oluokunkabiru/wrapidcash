@@ -35,6 +35,7 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->group(functio
     Route::resource('news-flash', 'NewsController');
     Route::get('/news-flash-disabled/{id}' , 'NewsController@disables')->name('news-flash-disabled');
     Route::get('/news-flash-enabled/{id}' , 'NewsController@enable')->name('news-flash-enabled');
+    Route::get('/profile/update', 'admin\UsersController@profile')->name('staff-profile');
     Route::resource('transaction-history', 'admin\TransactionController');
     Route::resource('withdraw-request', 'admin\WithdrawController');
     Route::get('/payment/method/{id}/transfer/{status}', 'admin\WithdrawController@withdrawStatus')->name('payment-transfer');
