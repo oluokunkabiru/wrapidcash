@@ -4,6 +4,7 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Contracts\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/' , 'PagesController@index')->name('welcome');
 Route::get('/register/{id}/referral', 'ReferralController@referralLink')->name('investor-referral');
+Route::get('/testme',  'investor\InvestorController@textme')->name('testme');
 
 Auth::routes();
 Auth::routes(['verify' => true]);
@@ -53,7 +55,9 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->group(functio
 });
 Route::middleware(['auth', 'users', 'verified'])->prefix('investor')->group(function () {
     Route::get('dashboard', 'investor\InvestorController@index')->name('usersdashboard');
+    Route::get('/profile', 'investor\InvestorController@profile')->name('user-profile');
     Route::resource('bank', 'investor\BankController');
+
     Route::resource('withdrawer-request', 'investor\WithdrawerRequest');
     Route::get('/account-setting', 'investor\BankController@accountSetting')->name('account_setting');
     Route::get('/transaction-history', 'investor\BankController@transactionHistory')->name('transaction_history');

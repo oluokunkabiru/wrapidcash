@@ -12,14 +12,14 @@
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
       <ul class="navbar-nav mr-lg-4 w-100">
         <li class="nav-item nav-search d-none d-lg-block w-100">
-          <div class="input-group">
+          {{--  <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text" id="search">
                 <i class="mdi mdi-magnify"></i>
               </span>
             </div>
             <input type="text" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search">
-          </div>
+          </div>  --}}
         </li>
       </ul>
       <ul class="navbar-nav navbar-nav-right">
@@ -69,6 +69,10 @@
             <span class="nav-profile-name">{{ ucwords(Auth::user()->name) }}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+            <a class="dropdown-item" href="{{ route('user-profile') }}">
+              <i class=" mdi mdi-account-settings text-primary"></i>
+              Profile
+            </a>
             <a class="dropdown-item" href="{{ route('profile-setting') }}">
               <i class="mdi mdi-settings text-primary"></i>
               Settings

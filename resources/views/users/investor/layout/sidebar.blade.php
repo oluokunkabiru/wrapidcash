@@ -24,7 +24,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('coin.index') }}">
           <i class="mdi mdi-coin  menu-icon"></i>
-          <span class="menu-title">Buyer coin</span>
+          <span class="menu-title">Buy coin</span>
         </a>
       </li>
 
@@ -32,7 +32,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="mdi mdi-coin  menu-icon"></i>
-          <span class="menu-title text-danger">Update your</span>
+          <span class="menu-title text-danger">Update your bank details</span>
         </a>
       </li>
       @endif

@@ -32,12 +32,8 @@
                                 aria-controls="overview" aria-selected="true">Overview</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sales-ta" data-toggle="tab" href="#sales" role="tab"
-                                aria-controls="sales" aria-selected="false">Pending investment</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" id="purchases-ta" data-toggle="tab" href="#purchase" role="tab"
-                                aria-controls="purchases" aria-selected="false">Recent transactions</a>
+                                aria-controls="purchases" aria-selected="false">News Letter</a>
                         </li>
                     </ul>
                     <div class="tab-content py-0 px-0">
@@ -197,94 +193,23 @@
                             </div>
                         </div>
 
-
-
-
-
-                    <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">
-                            @forelse ($pinvs as $inv)
-
-
-                                <div class="d-flex flex-wrap justify-content-xl-between">
-                                    <div
-                                        class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                        <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
-                                        <div class="d-flex flex-column justify-content-around">
-                                            <small class="mb-1 text-muted">Payment date</small>
-                                            <h5 class="mb-0 d-inline-block">
-
-                                                {!! date('d, M Y', strtotime($inv->created_at)) !!}
-                                            </h5>
-
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                        <i class="mdi mdi-cart icon-lg mr-3 text-success"></i>
-                                        <div class="d-flex flex-column justify-content-around">
-                                            <small class="mb-1 text-muted">Coin</small>
-                                            <h5 class="my-0 d-inline-block">
-                                              Plan :  <b>{!! $inv->coin->name !!}</b>
-
-                                            </h5>
-                                            <hr>
-                                            <h5 class="my-0">
-                                               Quantity : <b>{{ $inv->quantity }}</b>
-                                            </h5>
-                                            <hr>
-                                            <h5>Amount : </h5> <b><span class="mdi mdi-currency-ngn" >{{ number_format($inv->invest_amount, 2, '.', ',') }}</span></b>
-
-
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                        <i class="mdi mdi-receipt mr-3 icon-lg text-danger"></i>
-                                        <div class="d-flex flex-column justify-content-around">
-                                            <small class="mb-1 text-muted">Payment Evidence</small>
-                                            <a href="{{ $inv->getMedia('evidence')->first()->getFullUrl() }}" target="_blank"><img src="{{ $inv->getMedia('evidence')->first()->getFullUrl() }}" style="width: 100px" alt=""></a>
-
-                                        </div>
-                                    </div>
-
-                                    <a href="{{ route('investment-progress.edit', $inv->id) }}">
-                                        <div
-                                            class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                            <i class=" mdi mdi-repeat  mr-3 icon-lg text-warning"></i>
-                                            <div class="d-flex flex-column justify-content-around">
-                                                <small class="mb-1 text-muted">Action</small>
-                                                <h5 class="mr-2 mb-0 investmentprogress">Proceed to confirm </h5>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                @empty
-                                    <h3 class="text-center text-danger">No Pending order</h3>
-
-                            @endforelse
-                        {{-- </div> --}}
-                    </div>
-
-
-
-
                     <div class="tab-pane fade" id="purchase" role="tabpanel" aria-labelledby="purchases-tab">
                         <div class="d-flex flex-wrap justify-content-xl-between">
                             <div class="row">
                                 <div class="col-md-12 stretch-card">
                                     <div class="card">
                                         <div class="card-body">
-                                            <p class="card-title">Recent Transaction</p>
+                                            <p class="card-title">News Flash</p>
                                             <div class="table-responsive">
+                                                <a href="#addnewsletter" data-toggle="modal" class="btn btn-info"> Add news flash</a>
                                                 <table id="transaction" class="table">
                                                     <thead>
                                                         <tr>
                                                             <th>S/N</th>
-                                                            <th>Action</th>
-                                                            <th>Price</th>
+                                                            <th>News letter</th>
                                                             <th>Date</th>
                                                             <th>Status</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     @php
@@ -335,6 +260,47 @@
     </div>
 
 
+ <div class="modal" id="addnewsletter">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase">Add news flash</h4>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">&times;</button>
+            </div>
+        <form action="" action="{{ route('role.store') }}" method="POST">
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+
+                    {{ csrf_field() }}
+
+
+                    <!-- Modal footer -->
+                    <div class="form-group">
+                        <label for="usr">News:</label>
+                        <input id="username" type="text"
+                        class="form-control @error('role') is-invalid @enderror" name="role"
+                        value="{{ old('role') }}" required autocomplete="role">
+                    @if ($errors->has('role'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('role') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger float-left mx-2" data-dismiss="modal">Cancel</button>
+                <button id="addcategorybtn" type="submit" class="btn  btn-success text-uppercase">Add flash</button>
+            </div>
+
+        </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')

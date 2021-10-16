@@ -1,5 +1,5 @@
 @extends('users.investor.layout.app')
-@section('title', 'Dashboard')
+@section('title', 'Profile')
 
 @section('content')
 
@@ -8,10 +8,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <marquee behavior="" direction="">
-                            <h3 class="text-danger">News letters</h3>
-                        </marquee>
-                        <h2>Welcome back,{{ ucwords(Auth::user()->name) }}</h2>
+                        <h2>Profile,{{ ucwords(Auth::user()->name) }}</h2>
                     </div>
 
                 </div>
@@ -55,7 +52,7 @@
                         <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
 
                             <div class="row">
-                                {{--  <div class="col-md-7 grid-margin stretch-card">
+                                <div class="col-md-7 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
                                             <p class="card-title text-uppercase" id="pro"
@@ -112,30 +109,9 @@
                                             <a href="{{ route('investor-referral', $investor->username) }}">{{ route('investor-referral', $investor->username) }}
                                             </a>
                                             <p class=" mdi mdi-content-copy " onclick="fileCopy(this.id)"
-                                                id="{{ route('investor-referral', $investor->username) }}">
+                                            id="{{ route('investor-referral', $investor->username) }}">
                                             </p>
 
-                                            @if (Auth::user()->account_number)
-                                            <div class="jumbotron">
-                                                <div class="row">
-                                                    <h5 class="col-6">Bank name</h5>
-                                                    <h5 class="col-6 font-weight-bold">{{ Auth::user()->bank->name }}</h5>
-                                                    <hr>
-                                                    <h5 class="col-6">Bank account name</h5>
-                                                    <h5 class="col-6 font-weight-bold">{{ Auth::user()->account_name }}</h5>
-                                                    <hr>
-                                                    <h5 class="col-6">Bank account number</h5>
-                                                    <h5 class="col-6 font-weight-bold">{{ Auth::user()->account_number }}</h5>
-
-                                                </div>
-                                              </div>
-                                            @else
-                                            <h3 class="text-danger my-2 font-weight-bold">Update your bank details  <a class="text-primary" href="{{ route('profile-setting') }}">
-                                                <i class="mdi mdi-settings text-primary"></i>
-                                                Settings
-                                              </a> here</h3>
-
-                                            @endif
                                         </div>
                                         <div class="toast" data-autohide="true">
                                             <div class="toast-body">
@@ -143,9 +119,85 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>  --}}
-                                <div class="col-md-12 grid-margin stretch-card">
-                                    <div class="card">
+                                </div>
+
+                                <div class="col-md-5 grid-margin stretch-card">
+
+                                @if (Auth::user()->account_number)
+                                <div class="jumbotron">
+                                    <div class="row">
+                                        <h5 class="col-6">Bank name</h5>
+                                        <h5 class="col-6 font-weight-bold">{{ Auth::user()->bank->name }}</h5>
+                                        <hr>
+                                        <h5 class="col-6">Bank account name</h5>
+                                        <h5 class="col-6 font-weight-bold">{{ Auth::user()->account_name }}</h5>
+                                        <hr>
+                                        <h5 class="col-6">Bank account number</h5>
+                                        <h5 class="col-6 font-weight-bold">{{ Auth::user()->account_number }}</h5>
+
+                                    </div>
+                                  </div>
+                                @else
+                                <h3 class="text-danger my-2 font-weight-bold">Update your bank details  <a class="text-primary" href="{{ route('profile-setting') }}">
+                                    <i class="mdi mdi-settings text-primary"></i>
+                                    Settings
+                                  </a> here</h3>
+
+                                @endif
+                                    {{--  @forelse ($invs as $inv)
+                                    <div class="d-flex flex-wrap justify-content-xl-between">
+                                        <div
+                                            class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                                            <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
+                                            <div class="d-flex flex-column justify-content-around">
+                                                <small class="mb-1 text-muted">Investment start</small>
+                                                <h5 class="mb-0 d-inline-block">
+                                                    {!! $inv->end_date ? date('d, M Y', strtotime($inv->invest_date)) : '<span class="text-danger font-weight-bold">Pending</span>' !!}
+                                                </h5>
+
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                                            <i class="mdi mdi-calendar-heart icon-lg mr-3 text-success"></i>
+                                            <div class="d-flex flex-column justify-content-around">
+                                                <small class="mb-1 text-muted">Investment end</small>
+                                                <h5 class="mb-0 d-inline-block">
+                                                    {!! $inv->end_date ? date('d, M Y', strtotime($inv->end_date)) : '<span class="text-danger font-weight-bold">Pending</span>' !!}
+                                                </h5>
+
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                                            <i class=" mdi mdi-coin  mr-3 icon-lg text-danger"></i>
+                                            <div class="d-flex flex-column justify-content-around">
+                                                <small class="mb-1 text-muted">Revenue</small>
+                                                <h5 class="mr-2 mb-0">
+                                                    {{ number_format($inv->revenue, 2, '.', ',') }}</h5>
+                                            </div>
+                                        </div>
+
+                                        <a href="{{ route('investment.show', $inv->id) }}">
+
+
+                                            <div
+                                                class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                                                <i class=" mdi mdi-repeat  mr-3 icon-lg text-warning"></i>
+                                                <div class="d-flex flex-column justify-content-around">
+                                                    <small class="mb-1 text-muted">Investment progress</small>
+                                                    <h5 class="mr-2 mb-0 investmentprogress"> View investment detail </h5>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    @empty
+                                        <h3 class="text-center text-danger">No active investment at moment</h3>
+
+                                @endforelse  --}}
+                                    {{--  <div class="card">
                                         <div class="card-body">
                                             <p class="card-title">Wallet balance</p>
 
@@ -172,7 +224,7 @@
                                             <hr>
 
                                         </div>
-                                    </div>
+                                    </div>  --}}
                                 </div>
 
 
@@ -180,29 +232,12 @@
                             </div>
                         </div>
 
-                        <div class="text-center">
-                            <h4 class="">Refer new user and get reward</h4>
-                            <a href="{{ route('investor-referral', $investor->username) }}">{{ route('investor-referral', $investor->username) }}
-                            </a>
-                            <p class="display-3 mdi mdi-content-copy " onclick="fileCopy(this.id)"
-                            id="{{ route('investor-referral', $investor->username) }}">
-                            </p>
-
-                        </div>
-                        <div class="toast" data-autohide="true">
-                            <div class="toast-body">
-                                Copied <span id="toast" class="font-weight-bold mx-1"></span>
-                            </div>
-                        </div>
-                        </div>
 
 
 
-                    {{--  <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">  --}}
-                        <h3 class="text-center my-2 font-weight-bold">Active Investment</h3>
-                        @forelse ($invs as $inv)
 
-
+                    <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">
+                            @forelse ($invs as $inv)
                                 <div class="d-flex flex-wrap justify-content-xl-between">
                                     <div
                                         class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
@@ -256,7 +291,7 @@
 
                             @endforelse
                         {{-- </div> --}}
-                    {{--  </div>  --}}
+                    </div>
 
 
 
@@ -320,7 +355,7 @@
 
 
 
-                {{--  </div>  --}}
+                </div>
             </div>
         </div>
     </div>

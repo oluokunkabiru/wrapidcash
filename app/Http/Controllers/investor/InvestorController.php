@@ -47,6 +47,30 @@ class InvestorController extends Controller
         return view('users.investor.index', compact(['investor', 'invs', 'coins', 'transactions']));
     }
 
+    public function profile()
+    {
+        //
+
+
+        // print_r($array);
+        // return date("Y-m-d" ,strtotime("+30 day"));
+
+
+        // return $investor;
+             // return $invs;
+        $coins = Coin::where('status', 'active')->paginate(5);
+        $investor = Investor::with(['user'])->where('user_id', Auth::user()->id)->first();
+        // return $investor;
+        // $allcointype = Coin::where('status', 'active')->pluck('id')->toArray();
+        // return $allcointype;
+        $invs = Investment::with(['investor', 'coin'])->where(['investor_id'=> $investor->id, 'status'=>'active'])->orWhere('status', 'pending')->get();
+        $activeinvestment = Investment::with(['investor', 'coin'])->where(['investor_id'=> $investor->id])->get();
+
+        $transactions = Transaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->with(['user', 'investment'])->get();
+
+        return view('users.investor.profile', compact(['investor', 'invs', 'coins', 'transactions']));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -68,6 +92,32 @@ class InvestorController extends Controller
         //
     }
 
+    public function textme()
+    {
+        $activeinv = Investment::with(['investor', 'coin'])->where('status', 'active')->get();
+        foreach($activeinv as $inv){
+            $startTime = strtotime($inv->invest_date );
+            $today =  time(); //date('Y-m-d');
+            $endTime = strtotime($inv->end_date);
+            $revenue = $inv->revenue;
+            // $coin->price * appSettings()->investment_charges;$inv->quantity *
+            if($today < $endTime){
+                $invm = Investment::with(['investor', 'coin'])->find($inv->id);
+                $revenue = 0;
+                // 86400
+                for ( $i = $startTime; $i <= $today; $i +=3600 ) {
+
+                    $revenue += $invm->quantity * appSettings()->investment_percentage;
+                    echo  $invm->investor->username . "  ".$invm->id. "   = ". $invm->quantity * appSettings()->investment_percentage."  ". date("Y-m-d H:i:sa", $i)." ". $revenue ."<br>";
+                    }
+                    echo "<br>";
+                    echo "<h3>". $revenue ."</h3>";
+                // $invm->revenue = $revenue;
+                // $invm->update();
+            }
+
+        }
+    }
     /**
      * Display the specified resource.
      *

@@ -13,7 +13,7 @@
           <span class="menu-title">Manage users</span>
         </a>
       </li>
-     
+
       <li class="nav-item">
         <a class="nav-link" href="{{ route('transaction-history.index') }}">
           <i class="mdi mdi-history menu-icon"></i>
@@ -21,58 +21,47 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('withdraw-request.index') }}">
-          <i class=" mdi mdi-currency-ngn menu-icon"></i>
-          <span class="menu-title">Withdraw request</span>
+        <a class="nav-link" data-toggle="collapse" href="#investment" aria-expanded="false" aria-controls="investment">
+          <i class="mdi mdi-chart-line menu-icon"></i>
+          <span class="menu-title">Investments</span>
+          <i class="menu-arrow"></i>
         </a>
+        <div class="collapse" id="investment">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('withdraw-request.index') }}"> Withdrawal request </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('active-investment') }}"> Active investment </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('pending-investment') }}">Pending investment </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('ended-investment') }}">Due Investment</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('withdrawed-investment') }}">Processed payment </a></li>
+          </ul>
+        </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('active-investment') }}">
-          <i class="mdi mdi-chart-line   menu-icon"></i>
-          <span class="menu-title">Active investment</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('pending-investment') }}">
-          <i class=" mdi mdi-comment-alert   menu-icon"></i>
-          <span class="menu-title">Pending investment</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('ended-investment') }}">
-          <i class=" mdi mdi-checkbox-marked-circle   menu-icon"></i>
-          <span class="menu-title">Ended Investment</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('withdrawed-investment') }}">
-          <i class="mdi mdi-cash-multiple   menu-icon"></i>
-          <span class="menu-title">Processed payment</span>
-        </a>
-      </li>
+
       <li class="nav-item">
         <a class="nav-link" href="{{ route('wrap-coin.index') }}">
           <i class="mdi mdi-coin  menu-icon"></i>
           <span class="menu-title">Manage coins</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('role.index') }}">
-          <i class=" mdi mdi-account-card-details menu-icon"></i>
-          <span class="menu-title">Manage role</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('permission.index') }}">
-          <i class=" mdi mdi-account-card-details menu-icon"></i>
-          <span class="menu-title">Manage permission</span>
-        </a>
-      </li>
 
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#staffs" aria-expanded="false" aria-controls="staffs">
+          <i class="mdi mdi-account-switch  menu-icon"></i>
+          <span class="menu-title">Staff management</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="staffs">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('role.index') }}"> Add new staff </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('role.index') }}"> Manage role </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('permission.index') }}">Manage permission </a></li>
+        </ul>
+        </div>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('site-setting') }}">
           <i class=" mdi mdi-settings  menu-icon"></i>
-          <span class="menu-title">Investment setting</span>
+          <span class="menu-title">Website setting</span>
         </a>
       </li>
     </ul>
