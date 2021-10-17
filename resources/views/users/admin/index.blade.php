@@ -64,8 +64,7 @@
                                             </p>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <img src="{{ Auth::user()->getMedia('avatar')->first()
-    ? Auth::user()->getMedia('avatar')->first()->getFullUrl()
+                                                    <img src="{{ Auth::user()->getMedia('avatar')->first()? Auth::user()->getMedia('avatar')->first()->getFullUrl()
     : asset('images/avatar/img_avatar3.png') }}"
                                                         class="card-img" alt="">
                                                 </div>

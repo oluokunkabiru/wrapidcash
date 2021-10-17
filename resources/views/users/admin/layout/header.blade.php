@@ -1,4 +1,7 @@
- <!-- partial:partials/_navbar.html -->
+@php
+    $contactus =App\Models\Contact::where('status', 'unread')->orderBy('id', 'desc')->with(['user'])->get();
+@endphp
+<!-- partial:partials/_navbar.html -->
  <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="navbar-brand-wrapper d-flex justify-content-center">
       <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
@@ -12,60 +15,50 @@
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
       <ul class="navbar-nav mr-lg-4 w-100">
         <li class="nav-item nav-search d-none d-lg-block w-100">
-          {{--  <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="search">
-                <i class="mdi mdi-magnify"></i>
-              </span>
-            </div>
-            <input type="text" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search">
-          </div>  --}}
         </li>
       </ul>
       <ul class="navbar-nav navbar-nav-right">
         <li class="nav-item dropdown mr-1">
           <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
             <i class="mdi mdi-message-text mx-0"></i>
-            <span class="count"></span>
+            {{--  <span class="count"></span>  --}}
+            <span class="coun text-danger">{{ count($contactus) }}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
             <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+            @forelse ($contactus as $contact)
+            <a class="dropdown-item" href="{{ route('contact-us.show', $contact->id) }}">
+                <div class="item-thumbnail">
+                    <img src="{{ $contact->user ? $contact->user->getMedia('avatar')->first()->getFullUrl()
+                    : asset('images/avatar/img_avatar3.png') }}" alt="image" class="profile-pic">
+                </div>
+                <div class="item-content flex-grow">
+                  <h6 class="ellipsis font-weight-normal">{{ $contact->name }}
+                  </h6>
+                  <p class="font-weight-light small-text text-muted mb-0">
+                    {{ substr($contact->message, 0, 25); }}
+                  </p>
+
+                  <small>
+                    <p class="font-weight-light small-text mb-0 text-muted">
+                        {{ Auth::user()->timeago($contact->created_at) }}
+                    </p>
+                  </small>
+                </div>
+              </a>
+            @empty
             <a class="dropdown-item">
-              <div class="item-thumbnail">
-                  <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
-              </div>
-              <div class="item-content flex-grow">
-                <h6 class="ellipsis font-weight-normal">David Grey
-                </h6>
-                <p class="font-weight-light small-text text-muted mb-0">
-                  The meeting is cancelled
-                </p>
-              </div>
-            </a>
-            <a class="dropdown-item">
-              <div class="item-thumbnail">
-                  <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
-              </div>
-              <div class="item-content flex-grow">
-                <h6 class="ellipsis font-weight-normal">Tim Cook
-                </h6>
-                <p class="font-weight-light small-text text-muted mb-0">
-                  New product launch
-                </p>
-              </div>
-            </a>
-            <a class="dropdown-item">
-              <div class="item-thumbnail">
-                  <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
-              </div>
-              <div class="item-content flex-grow">
-                <h6 class="ellipsis font-weight-normal"> Johnson
-                </h6>
-                <p class="font-weight-light small-text text-muted mb-0">
-                  Upcoming board meeting
-                </p>
-              </div>
-            </a>
+                <div class="item-thumbnail">
+                    <img src="{{  asset('images/avatar/img_avatar3.png') }}" alt="image" class="profile-pic">
+                </div>
+                <div class="item-content flex-grow">
+                  <h6 class="ellipsis font-weight-normal">No message at this moment
+                  </h6>
+
+                </div>
+              </a>
+            @endforelse
+
           </div>
         </li>
         <li class="nav-item dropdown mr-4">

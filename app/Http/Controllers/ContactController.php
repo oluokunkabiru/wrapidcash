@@ -6,6 +6,7 @@ use App\Http\Requests\ContactReques;
 use App\Mail\ContactUs;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
@@ -45,6 +46,9 @@ class ContactController extends Controller
         $contact->email = $request->email;
         $contact->subject = $request->subject;
         $contact->message = $request->message;
+
+        $contact->user_id = Auth::user()->id ? Auth::user()->id:"";
+
         $contact->save();
         Mail::send(new ContactUs($contact));
         return redirect()->route('contact-us.index')->with('name', $contact->name);
@@ -56,9 +60,13 @@ class ContactController extends Controller
      * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function show(Contact $contact)
+    public function show($id)
     {
         //
+        $contact = Contact::where('id', $id)->first();
+        $contact->status = "read";
+        $contact->update();
+        return view('users.admin.message', compact(['contact']));
     }
 
     /**
