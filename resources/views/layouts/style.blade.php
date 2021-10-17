@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ asset('front-asset/css/jquery-ui.css') }}">
 <link rel="stylesheet" href="{{ asset('front-asset/css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('front-asset/css/owl.theme.default.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/style.css') }}">
 <link rel="stylesheet" href="{{ asset('front-asset/css/style.css') }}">
 <link rel="shortcut icon" href="{{ appSettings()->getMedia('logo')->first()->getFullUrl() }}" type="image/x-icon">
 {{--  <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -19,3 +20,6 @@
 <link rel="stylesheet" href="css/aos.css">
 
 <link rel="stylesheet" href="css/style.css">  --}}
+<style>
+    
+</style>

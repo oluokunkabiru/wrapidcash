@@ -198,7 +198,7 @@
                         </div>
 
                         <div class="text-center">
-                            <h4 class="">Refer new user and get reward</h4>
+                            <h4 class="">Refer new user and earn <b>{{ appsettings()->referral_percentage * 100}}%</b> of your referrals first investment</h4>
                             <a href="{{ route('investor-referral', $investor->username) }}">{{ route('investor-referral', $investor->username) }}
                             </a>
                             <p class="display-3 mdi mdi-content-copy " onclick="fileCopy(this.id)"

@@ -24,7 +24,7 @@ use Spatie\Permission\Contracts\Role;
 Route::get('/' , 'PagesController@index')->name('welcome');
 Route::get('/register/{id}/referral', 'ReferralController@referralLink')->name('investor-referral');
 Route::get('/testme',  'investor\InvestorController@textme')->name('testme');
-
+Route::resource('contact-us', 'ContactController');
 Auth::routes();
 Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
