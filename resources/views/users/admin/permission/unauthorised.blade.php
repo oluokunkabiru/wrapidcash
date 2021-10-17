@@ -1,4 +1,4 @@
-@extends('users.layout.app')
+@extends('users.admin.layout.app')
 @section('title', 'Access denie area')
 
 @section('content')

@@ -1,3 +1,4 @@
+@if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('view active investment'))
 @extends('users.admin.layout.app')
 @section('title', 'Active investment')
 @section('style')
@@ -45,8 +46,9 @@
                                  {{ $inv->revenue }}
                               </td>
                               <td>
+                                @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('view active investment details'))
                                 <a href="{{ route('investment-progress.show', $inv->id)}}" class="btn btn-rounded btn-warning text-white font-weight-bold">View progress details</a>
-
+                                @endif
                               </td>
                           </tr>
 
@@ -62,7 +64,7 @@
         {{--  <div class="col-md-2"></div>  --}}
     </div>
 
-   
+
 </div>
 @endsection
 
@@ -83,4 +85,9 @@
         })
     </script>
 @endsection
+@else
+    <script>
+        window.location = "{{ route('unauthorised') }}";
+    </script>
 
+@endif

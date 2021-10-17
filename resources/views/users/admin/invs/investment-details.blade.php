@@ -1,3 +1,4 @@
+@if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('view active investment details'))
 @extends('users.admin.layout.app')
 @section('title', 'Investment details')
 @section('style')
@@ -207,3 +208,9 @@ ul#example li p {
     })
 </script>
 @endsection
+@else
+    <script>
+        window.location = "{{ route('unauthorised') }}";
+    </script>
+
+@endif

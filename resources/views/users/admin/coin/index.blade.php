@@ -1,3 +1,5 @@
+@if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('view manage coin'))
+
 @extends('users.admin.layout.app')
 @section('title', 'Manage coins and there prices')
 @section('style')
@@ -39,8 +41,11 @@
                         @endif
                         <p class="card-title">Manage wrap coins and there prices</p>
                         <div class="table-responsive">
+                            @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('add coin'))
+
                             <a href="#addcoin" data-toggle="modal" class="btn btn-primary btn-rounded font-weight-bold"> Add
                                 wrap coin</a>
+                                @endif
                             <table id="transaction" class="table">
                                 <thead>
                                     <tr>
@@ -83,6 +88,8 @@
 
                                             <td>
                                                 <div class="row">
+                                                    @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('update coin'))
+
                                                     <div class="col">
                                                         <a href="#editcoin" editurl="{{ route('wrap-coin.update', $coin->id) }}" data-toggle="modal" qty="{{ $coin->name }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
                                                             <span class="badge badge-pill badge-success" data-toggle="tooltip" title="Edit wrap coin" ><i
@@ -90,26 +97,37 @@
                                                         </a>
                                                     </div>
 
+                                                    @endif
+
                                                     <div class="col">
+
                                                         @if ($coin->status =="active")
+                                                        @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('disable coin'))
+
                                                         <a href="#disabledcoin" status ="{{ ucwords($coin->status) }}" disableturl="{{ route('disabled-wrap-coin', $coin->id) }}" data-toggle="modal" qty="{{ $coin->name }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
                                                             <span class="badge badge-pill badge-info"><i
                                                                     class="mdi mdi-shuffle-disabled " data-toggle="tooltip" title="Disable wrap coin"></i></span>
                                                         </a>
+                                                        @endif
                                                         @else
+                                                        @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('enable coin'))
                                                         <a href="#enabledcoin" status ="{{ ucwords($coin->status) }}" disableturl="{{ route('enabled-wrap-coin', $coin->id) }}" data-toggle="modal" qty="{{ $coin->name }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
                                                             <span class="badge badge-pill badge-warning"><i
                                                                     class="mdi mdi-block-helper" data-toggle="tooltip" title="Enable wrap coin"></i></span>
                                                         </a>
                                                         @endif
 
+                                                        @endif
+
                                                     </div>
 
                                                     <div class="col">
+                                                        @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('update coin'))
                                                         <a href="#viewcoin" status ="{{ ucwords($coin->status) }}" disableturl="{{ route('enabled-wrap-coin', $coin->id) }}" data-toggle="modal" qty="{{ $coin->name }}" price="{{ $coin->price }}" img="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}">
                                                             <span class="badge badge-pill badge-primary"><i
                                                                     class=" mdi mdi-eye  " data-toggle="tooltip" title="View Wrap details"></i></span>
                                                         </a>
+                                                        @endif
                                                     </div>
 
                                                 </div>
@@ -555,3 +573,9 @@
         })
     </script>
 @endsection
+@else
+    <script>
+        window.location = "{{ route('unauthorised') }}";
+    </script>
+
+@endif

@@ -1,3 +1,4 @@
+@if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('manage permission'))
 @extends('users.admin.layout.app')
 @section('title', 'Manage roles')
 @section('content')
@@ -133,3 +134,9 @@
         })
     </script>
 @endsection
+@else
+    <script>
+        window.location = "{{ route('unauthorised') }}";
+    </script>
+
+@endif

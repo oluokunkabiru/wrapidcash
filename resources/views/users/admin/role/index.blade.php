@@ -1,3 +1,5 @@
+@if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('view manage role'))
+
 @extends('users.admin.layout.app')
 @section('title', 'Manage roles')
 @section('content')
@@ -36,7 +38,9 @@
                 </div>
             @endif
                 <div class="card-body">
+                    @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('add role'))
                     <a href="#addrole" data-toggle="modal" class="btn btn-success text-uppercase ">Add role</a>
+                    @endif
                     <div class="table-responsive">
                         <table class="table table-striped v_center" id="table-1">
 
@@ -62,11 +66,16 @@
                                     <td>{{ $role->created_at }}</td>
                                 <td>
                                     <div class="row">
+                                        @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('edit role'))
+
                                         <a href="#editrole" rolename="{{ ucwords($role->name) }}" editurl="{{ route('role.update', $role->id) }}" data-toggle="modal" class="badge badge-pill badge-warning mx-1"><span
                                                 class="mdi mdi-tooltip-edit  p-1 text-white"></span></a>
-                                        <a href="#deleterole" data-toggle="modal" rolename="{{ ucwords($role->name) }}" deurl="{{ route('role.destroy', $role->id) }}"
+                                            @endif
+                                            @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('delete role'))
+                                                <a href="#deleterole" data-toggle="modal" rolename="{{ ucwords($role->name) }}" deurl="{{ route('role.destroy', $role->id) }}"
                                             class="badge badge-pill badge-danger mx-1"><span
                                                 class="mdi mdi-delete  p-1 text-white"></span></a>
+                                                @endif
                                     </div>
                                 </td>
                                 </tr>
@@ -240,3 +249,8 @@
         })
     </script>
 @endsection
+@else
+    <script>
+        window.location = "{{ route('unauthorised') }}";
+    </script>
+@endif

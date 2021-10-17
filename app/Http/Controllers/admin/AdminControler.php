@@ -36,6 +36,8 @@ class AdminControler extends Controller
         $withr = Withdraw::where('status', '!=', 'success')->get();
         $coins = Coin::where('status', 'active')->get();
         $news = News::get();
+        // $use = User::where('id', Auth::user()->id);
+        // $use->assignRole('Admin');
         $transactions = Transaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->with(['user', 'investment'])->get();
 
         return view('users.admin.index', compact(['investor','pinvs','news','withr','ainvs','users','with', 'invs', 'coins', 'transactions']));

@@ -1,3 +1,4 @@
+@if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('manage user'))
 @extends('users.admin.layout.app')
 @section('title', 'Transaction Manage users')
 @section('style')
@@ -62,15 +63,20 @@
 {{--    --}}
                                                     <div class="col">
                                                         @if ($user->status =="active")
+                                                        @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('disable user'))
+
                                                     <a href="#disableduser" status="{{ ucwords($user->status) }}" durl="{{ route('disabled-user', $user->id) }}" data-toggle="modal" name="{{ $user->name }}" email="{{ $user->email }}" phone="{{ $user->phone }}" img="{{ $user->getMedia('avatar')->first()?$user->getMedia('avatar')->first()->getFullUrl():asset('images/avatar/img_avatar3.png') }}">
                                                             <span class="badge badge-pill badge-info"><i
                                                                     class="mdi mdi-shuffle-disabled " data-toggle="tooltip" title="Disable user"></i></span>
                                                         </a>
+                                                        @endif
                                                         @else
+                                                        @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('enable user'))
                                                     <a href="#enableduser" status="{{ ucwords($user->status) }}" eurl="{{ route('enable-user', $user->id) }}" data-toggle="modal" name="{{ $user->name }}" email="{{ $user->email }}" phone="{{ $user->phone }}" img="{{ $user->getMedia('avatar')->first()?$user->getMedia('avatar')->first()->getFullUrl():asset('images/avatar/img_avatar3.png') }}" >
                                                             <span class="badge badge-pill badge-warning"><i
                                                                     class="mdi mdi-block-helper" data-toggle="tooltip" title="Enable user"></i></span>
                                                         </a>
+                                                        @endif
                                                         @endif
 
                                                     </div>
@@ -382,3 +388,10 @@
         })
     </script>
 @endsection
+
+@else
+    <script>
+        window.location = "{{ route('unauthorised') }}";
+    </script>
+
+@endif

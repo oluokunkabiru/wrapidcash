@@ -1,6 +1,9 @@
 @php
     $contactus =App\Models\Contact::where('status', 'unread')->orderBy('id', 'desc')->with(['user'])->get();
+    $myrole = Auth::user()->getRoleNames()[0];
+    $role = Spatie\Permission\Models\Role::findByName($myrole);
 @endphp
+
 <!-- partial:partials/_navbar.html -->
  <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="navbar-brand-wrapper d-flex justify-content-center">
@@ -18,6 +21,7 @@
         </li>
       </ul>
       <ul class="navbar-nav navbar-nav-right">
+        @if ($role->hasPermissionTo("view contact message"))
         <li class="nav-item dropdown mr-1">
           <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
             <i class="mdi mdi-message-text mx-0"></i>
@@ -27,7 +31,7 @@
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
             <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
             @forelse ($contactus as $contact)
-            <a class="dropdown-item" href="{{ route('contact-us.show', $contact->id) }}">
+            <a class="dropdown-item" href="{{ $role->hasPermissionTo("read contact message")? route('contact-us.show', $contact->id):"#" }}">
                 <div class="item-thumbnail">
                     <img src="{{ $contact->user ? $contact->user->getMedia('avatar')->first()->getFullUrl()
                     : asset('images/avatar/img_avatar3.png') }}" alt="image" class="profile-pic">
@@ -61,6 +65,7 @@
 
           </div>
         </li>
+        @endif
         <li class="nav-item dropdown mr-4">
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center notification-dropdown" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-bell mx-0"></i>

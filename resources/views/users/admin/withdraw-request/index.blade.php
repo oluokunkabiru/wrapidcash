@@ -1,3 +1,4 @@
+@if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('view withdrawal request'))
 @extends('users.admin.layout.app')
 @section('title', 'Withdraw request')
 @section('style')
@@ -76,7 +77,9 @@
                               </td>
                               <td>
                                 @if ($with->status !="success")
+                                @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('process withdrawal request'))
                                 <a href="{{ route('process-withdraw', [$with->id, str_replace(" ", "-", $with->user->name)]) }}" class="btn btn-rounded btn-warning text-white font-weight-bold">Continue processing</a>
+                                @endif
                                 @endif
 
                               </td>
@@ -115,4 +118,9 @@
         })
     </script>
 @endsection
+@else
+    <script>
+        window.location = "{{ route('unauthorised') }}";
+    </script>
 
+@endif

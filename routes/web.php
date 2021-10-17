@@ -33,6 +33,9 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->group(functio
     Route::get('/dashboard', 'admin\AdminControler@index')->name('admindashboard');
     Route::resource('users', 'admin\UsersController');
     Route::resource('news-flash', 'NewsController');
+    Route::get('unauthorised', function () {
+            return view('users.admin.permission.unauthorised');
+    })->name('unauthorised');
     Route::get('/news-flash-disabled/{id}' , 'NewsController@disables')->name('news-flash-disabled');
     Route::get('/news-flash-enabled/{id}' , 'NewsController@enable')->name('news-flash-enabled');
     Route::get('/profile/update', 'admin\UsersController@profile')->name('staff-profile');

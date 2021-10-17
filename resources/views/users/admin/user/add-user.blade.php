@@ -1,3 +1,4 @@
+@if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('add staff'))
 @extends('users.admin.layout.app')
 @section('title', 'Site configuration setting')
 @section('style')
@@ -91,3 +92,9 @@
      })
 </script>
 @endsection
+@else
+    <script>
+        window.location = "{{ route('unauthorised') }}";
+    </script>
+
+@endif

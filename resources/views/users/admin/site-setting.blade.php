@@ -1,3 +1,4 @@
+@if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('view website setting'))
 @extends('users.admin.layout.app')
 @section('title', 'Site configuration setting')
 @section('style')
@@ -199,9 +200,11 @@
 
                         {{-- </div> --}}
                     </div>
+                    @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('edit website setting'))
                     <div class="card-footer p-4 my-2">
                         <button class="btn btn-rounded btn-success float-righ font-weight-bold mr-2">Update site</button>
                     </div>
+                    @endif
             </form>
         </div>
 
@@ -212,3 +215,9 @@
 @section('script')
 
 @endsection
+@else
+    <script>
+        window.location = "{{ route('unauthorised') }}";
+    </script>
+
+@endif

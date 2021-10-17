@@ -1,3 +1,4 @@
+@if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('view processed withdrawal'))
 @extends('users.admin.layout.app')
 @section('title', 'Active investment')
 @section('style')
@@ -79,3 +80,9 @@
     </script>
 @endsection
 
+@else
+    <script>
+        window.location = "{{ route('unauthorised') }}";
+    </script>
+
+@endif

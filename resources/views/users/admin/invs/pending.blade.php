@@ -1,3 +1,4 @@
+@if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('view pending investment'))
 @extends('users.admin.layout.app')
 @section('title', 'Active investment')
 @section('style')
@@ -43,8 +44,10 @@
                               <td>{{ date('d, M Y:h:s:ia', strtotime($inv->created_at)) }}</td>
                               <td> <a href="{{ $inv->getMedia('evidence')->first()->getFullUrl() }}" target="_blank" rel="noopener noreferrer"><img src="{{ $inv->getMedia('evidence')->first()->getFullUrl() }}" style="width: 100px" alt=""></a></td>
                               <td>
-                                <a href="{{ route('investment-progress.edit', $inv->id) }}" class="btn btn-rounded btn-warning text-white font-weight-bold">Proceed to approve</a>
+                                @if ( Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo('process pending investment'))
 
+                                <a href="{{ route('investment-progress.edit', $inv->id) }}" class="btn btn-rounded btn-warning text-white font-weight-bold">Proceed to approve</a>
+                                @endif
                               </td>
                           </tr>
 
@@ -60,7 +63,7 @@
         {{--  <div class="col-md-2"></div>  --}}
     </div>
 
-   
+
 </div>
 @endsection
 
@@ -81,4 +84,11 @@
         })
     </script>
 @endsection
+
+@else
+    <script>
+        window.location = "{{ route('unauthorised') }}";
+    </script>
+
+@endif
 
