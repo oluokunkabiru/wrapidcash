@@ -38,7 +38,7 @@
                     <div id="accordion">
                         @forelse ($roles as $role)
 
-                        <div  data-parent="#accordion" class="activerole collapse {{ "show"  /*Auth::user()->getRoleNames()[0]==$role->name?"show": ""*/ }}" id="therole{{ $role->id }}">
+                        <div  data-parent="#accordion" class="activerole collapse {{ Auth::user()->getRoleNames()[0]==$role->name?"show": "" }}" id="therole{{ $role->id }}">
                             <h3 class="text-danger text-center" id="rolename">{{ $role->name }}</h3>
                             <div class="row" >
                                 @forelse ($permisions as $permission)
