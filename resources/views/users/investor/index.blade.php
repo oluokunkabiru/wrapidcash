@@ -17,17 +17,17 @@
                 <div class="d-flex align-items-end flex-wrap">
 
                     <div class="mr-md-3 mr-xl-5">
-                        <div class="row">
+                         {{--<div class="row">
                             <div class="col-2">
                                 <span class="btn btn-info btn-sm font-weight-bold btn-rounded btn-block">News flash</span>
                             </div>
-                            <div class="col-10 newsflash">
+                             <div class="col-10 newsflash">
                              <marquee behavior="alternate" direction="">
                                 <h4 class="text-danger">News letters</h4>
                             </marquee>
                             </div>
-                        </div>
-                        <h2>Welcome back,{{ ucwords(Auth::user()->name) }}</h2>
+                        </div>--}}
+                        <h2>Welcome ,{{ ucwords(Auth::user()->name) }}</h2>
 
                     </div>
 
@@ -187,7 +187,13 @@
 
                                                 @endif
                                             <hr>
+                                            @if (!Auth::user()->account_number)
+                                            <h3 class="text-danger my-2 font-weight-bold">Update your bank details  <a class="text-primary" href="{{ route('profile-setting') }}">
+                                                <i class="mdi mdi-settings text-primary"></i>
+                                                Settings
+                                              </a> here</h3>
 
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

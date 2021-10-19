@@ -20,11 +20,11 @@
                 <h3>Social Profiles</h3>
                 <div class="social-links">
 
-                  <a href="#" class="twitter"><i class="icon-twitter"></i></a>
-                  <a href="#" class="facebook"><i class="icon-facebook"></i></a>
-                  <a href="#" class="instagram"><i class="icon-instagram"></i></a>
-                  <a href="#" class="google-plus"><i class="icon-skype"></i></a>
-                  <a href="#" class="linkedin"><i class="icon-linkedin"></i></a>
+                  {{--  <a href="#" class="twitter"><i class="icon-twitter"></i></a>  --}}
+                  <a target="_blank" class="bg-primary text-light" href="https://www.facebook.com/Rapid-cash-105725001891866" class="facebook"><i class="icon-facebook"></i></a>
+                  <a target="_blank" class="bg-success text-light" href="https://wa.me/{{ appSettings()->phone }}" class="instagram"><i class="icon-whatsapp"></i></a>
+                  {{--  <a href="#" class="google-plus"><i class="icon-skype"></i></a>  --}}
+                  {{--  <a href="#" class="linkedin"><i class="icon-linkedin"></i></a>  --}}
                 </div>
               </div>
             </div>
@@ -32,14 +32,15 @@
               <div class="info-box mt-4">
                 <i class="icon-envelope"></i>
                 <h3>Email Us</h3>
-                <p>principal@al-kawthar.com</p>
+                <p>{{ appsettings()->email }}</p>
               </div>
             </div>
             <div class="col-md-6">
               <div class="info-box mt-4">
                 <i class="icon-phone"></i>
                 <h3>Call Us</h3>
-                <p>+234 8130 584 550</p>
+                <p>{{ appSettings()->phone }}</p>
+                <p>+2348147056419</p>
               </div>
             </div>
           </div>
@@ -113,9 +114,9 @@
         Breaking Financial Limits.
     </h4>
       <div class="social-links">
-        <a href="#" class="twitter"><i class="icon-whatsapp"></i></a>
-        <a href="#" class="facebook"><i class="icon-facebook"></i></a>
-        <a href="#" class="instagram"><i class="icon-instagram"></i></a>
+        <a  target="_blank"  class="bg-success text-light" href="https://wa.me/{{ appSettings()->phone }}" class="twitter"><i class="icon-whatsapp"></i></a>
+        <a  target="_blank" class="bg-primary text-light" href="https://www.facebook.com/Rapid-cash-105725001891866" class="facebook"><i class="icon-facebook"></i></a>
+        {{--  <a href="#" class="instagram"><i class="icon-instagram"></i></a>  --}}
         {{--  <a href="#" class="google-plus"><i class="icon-skype"></i></a>  --}}
         {{--  <a href="#" class="linkedin"><i class="icon-linkedin"></i></a>  --}}
       </div>
@@ -127,7 +128,7 @@
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/laura-free-creative-bootstrap-theme/ -->
-        Designed by <a href="https://koadit.com/">KOADIT</a>
+        Designed by <a href="https://www.facebook.com/Adten094" target="_blank">DevIfeoluwa</a>
       </div>
     </div>
   </footer><!-- End Footer -->

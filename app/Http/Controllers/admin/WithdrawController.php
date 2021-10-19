@@ -20,7 +20,7 @@ class WithdrawController extends Controller
     public function index()
     {
         //
-        $withdraws = Withdraw::with(['user', 'investor', 'investment'])->where(['status' => 'pending'])->orWhere('status', 'failed')->get();
+        $withdraws = Withdraw::with(['user', 'investor', 'investment'])->where(['status' => 'pending'])->orWhere('status', 'failed')->orWhere('status', 'processing')->get();
         // return $withdraws;
 
         return view('users.admin.withdraw-request.index', compact(['withdraws']));
@@ -98,9 +98,9 @@ class WithdrawController extends Controller
         $message ='Your payment request of ₦'. $withdraw->amount." was ". $status;
 
         Notification::send(Auth::user(), new InvestorNotification($bg, $icon, $message));
-        
+
         return redirect()->route('withdraw-request.index')->with(strtolower($status), 'The payment of ₦'.$withdraw->amount. ' was '. $status );
-     
+
     }
     /**
      * Update the specified resource in storage.

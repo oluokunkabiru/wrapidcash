@@ -40,6 +40,12 @@
             <div class="offset-lg-3"></div>
             <div class="col-lg-6">
                 <div class="dudu" >
+                    @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Disabled! </strong> {{ session('error') }}
+                    </div>
+                @endif
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <h1>Login</h1>

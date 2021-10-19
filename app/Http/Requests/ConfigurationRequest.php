@@ -26,7 +26,7 @@ class ConfigurationRequest extends FormRequest
         return [
             //
             'name' => 'required|string|min:4',
-            'phone' => 'required|string|min:10|max:13',
+            'phone' => 'required|string|min:10|max:15',
             'email' => 'required|email',
             'address' => 'sometimes|nullable|string',
             'vision' => 'sometimes|nullable|string',

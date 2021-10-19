@@ -122,7 +122,7 @@
     </section>
 
     <section>
-        <div class="site-section" id="team-section">
+        <div class="site-sectio" id="team-section">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-7 text-center">
@@ -215,12 +215,12 @@
                                 </div>
                             </div>
 
-                            <div class="carousel-item">
+                            {{--  <div class="carousel-item">
                                 <div class="container">
                                     <h2 class="font-weight-bold text-dark p-3 rounded text-uppercase"
                                         style="max-width: max-content">Rapid Cash:- Breaking Financial Limits.</h2>
                                 </div>
-                            </div>
+                            </div>  --}}
 
                             <div class="carousel-item">
                                 <div class="container">

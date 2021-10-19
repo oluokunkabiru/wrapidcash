@@ -82,7 +82,8 @@ class InvestmentController extends Controller
 
         if($ref->investor_id){
             $previousinv = Investment::where('investor_id', $investor->id)->first();
-            if(!$previousinv){
+            // return $previousinv;
+            if(!$previousinv->revenue){
                 $refbonus = Investor::with(['user'])->where('id', $ref->investor_id)->first();
                 // return $ref;
                 $currentBal = $refbonus->referral_bonus;
