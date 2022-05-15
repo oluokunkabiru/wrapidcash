@@ -51,7 +51,6 @@ class InvestmentController extends Controller
         $invest = new Investment();
         $invest->coin_id = $request->coinid;
         $invest->depositor_name = $request->name;
-        $invest->addMediaFromRequest('evidence')->toMediaCollection('evidence');
         $coin = Coin::where('id', $request->coinid)->first();
         $ref = Referral::where('user_id', Auth::user()->id)->first();
         $investor = Investor::where('user_id', Auth::user()->id)->first();
@@ -61,24 +60,9 @@ class InvestmentController extends Controller
         $invest->invest_amount = $coin->price;
         $invest->expected_amount = $coin->price+($coin->price*appSettings()->investment_percentage*appSettings()->investment_duration);
         $invest->quantity =$quantity;
-        // if($ref->investor_id){
-        //     $previousinv = Investment::where('investor_id', $investor->id)->first();
-        //     if(!$previousinv){
-        //         $refbonus = Investor::with(['user'])->where('id', $ref->investor_id)->first();
-        //         // return $ref;
-        //         $currentBal = $refbonus->referral_bonus;
-        //         $refbonu =  $coin->price*$quantity*appSettings()->referral_percentage;
-        //         $currentBal += $refbonu;
-        //         $refbonus->referral_bonus = $currentBal;
-        //         $refbonus->update();
-        //         $bg ="bg-success";
-        //         $icon = "mdi mdi-cash-multiple";
-        //         $message ='You buy '. $coin->quantity." with cash";
-        //         Notification::send($refbonus->user, new InvestorNotification($bg, $icon, $message));
-        //     }
-        // }
-
+        $invest->addMediaFromRequest('evidence')->toMediaCollection('evidence');
         $invest->save();
+        
         $bg ="bg-warning";
         $icon = "mdi mdi-cash-multiple";
         $message ='You buy '. $coin->quantity." with cash";

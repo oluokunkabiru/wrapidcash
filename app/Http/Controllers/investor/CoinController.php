@@ -72,7 +72,7 @@ class CoinController extends Controller
 
     public function coinDetail($id){
         $coin = Coin::where('id', $id)->first();
-        $banks = ["bank"=>["bank" => "UBA", "account_number"=>"2073581143", "account_name" =>"OLUOKUN KABIRU"]];//Bank::get();
+        $banks = ["bank"=>["bank" => "Wema Bank,", "account_number"=>"7810365263", "account_name" =>"Rapid Cash Investment LTD,"]];//Bank::get();
 
         //    return print_r($banks);
         return view('users.investor.coin-detail', compact(['coin', 'banks']));

@@ -47,7 +47,7 @@ class ContactController extends Controller
         $contact->subject = $request->subject;
         $contact->message = $request->message;
 
-        $contact->user_id = Auth::user()->id ? Auth::user()->id:"";
+        $contact->user_id = Auth::check() ? Auth::user()->id:NULL;
 
         $contact->save();
         Mail::send(new ContactUs($contact));
