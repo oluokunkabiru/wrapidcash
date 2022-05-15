@@ -42,12 +42,13 @@
                                     <div class="col-md-6">
                                         <img src="{{ $coin->getMedia('coin-avatar')->first()->getFullUrl() }}"
                                             class="card-img" alt="">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                  <span class="input-group-text">  <b>Quantity</b> </span>
-                                                </div>
-                                                <input type="number" value="1" step="1" id="qty" class="form-control">
-                                              </div>
+                                            <!--<div class="input-group mb-3">-->
+                                            <!--    <div class="input-group-prepend">-->
+                                            <!--      <span class="input-group-text">  <b>Quantity</b> </span>-->
+                                            <!--    </div>-->
+                                            <!--    <input type="number" value="1" step="1" id="qty" class="form-control">-->
+                                            <!--  </div>-->
+                                              
 
                                     </div>
                                     <div class="col-md-6">
@@ -149,15 +150,17 @@
                             <input type="hidden" name="phone" value="{{ Auth::user()->phone }}">
                             {{-- required --}}
                             @csrf
-                            <input type="hidden" name="reference" value="{{ 'KOADIT_' . Auth::user()->phone . '_' . time() }}">
+                            <input type="hidden" name="reference" value="{{ 'WRAPCOIN_' . Auth::user()->phone . '_' . time() }}">
                             <input type="hidden" id="pamount" name="amount" value="{{ ($coin->price + $coin->price * appSettings()->investment_charges) * 100 }}">
                             {{-- required in kobo --}}
                             <input type="hidden" id="pquantity" name="quantity" value="1">
                             <input type="hidden" name="currency" value="NGN">
+                            
                             <input type="hidden" id="metadata" name="metadata" value="{{ json_encode($metadata) }}">
                             {{-- For other necessary things you want to add to your payload. it is optional though --}}
                             {{-- <input type="hidden" name="" value="{{ Paystack::genTranxRef() }}"> required --}}
                             {{-- {{ csrf_field() }} works only when using laravel 5.1, 5.2 --}}
+                            <input type="hidden" name="subaccount" value="ACCT_a7vqbnqmj8o2345" >
 
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"> {{-- employ this in place of csrf_field only in laravel 5.0 --}}
 

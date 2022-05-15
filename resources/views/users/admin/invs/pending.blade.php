@@ -39,7 +39,7 @@
                               <td>{{ ++$sn }}</td>
                               <td>{{ ucwords($inv->investor->users($inv->investor->id)->name) }}</td>
                               <td> {{ ucwords($inv->investor->users($inv->investor->id)->phone) }}</td>
-                              <td> {{ ucwords($inv->investor->users($inv->investor->id)->email) }}</td>
+                              <td> {{ $inv->investor->users($inv->investor->id)->email }}</td>
                               <td>{{ ucwords($inv->coin->name) }}</td>
                               <td>{{ date('d, M Y:h:s:ia', strtotime($inv->created_at)) }}</td>
                               <td> <a href="{{ $inv->getMedia('evidence')->first()->getFullUrl() }}" target="_blank" rel="noopener noreferrer"><img src="{{ $inv->getMedia('evidence')->first()->getFullUrl() }}" style="width: 100px" alt=""></a></td>
